@@ -8,6 +8,16 @@ import org.firstinspires.ftc.teamcode.greengirls.GGCore;
 public class GGLibrary extends GGCore {
 
 
+
+
+
+    //HIs
+
+
+
+
+
+
       /*  // add GGLibrary specific code here
         public void leftWingOut() {
             servo2.setPosition(LWING_MIN_RANGE);}
