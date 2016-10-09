@@ -7,72 +7,62 @@ import org.firstinspires.ftc.teamcode.greengirls.GGCore;
  */
 public class GGLibrary extends GGCore {
 
-
-
-
-
-    //HIs
-
-
-
-
-
-
-      /*  // add GGLibrary specific code here
-        public void leftWingOut() {
-            servo2.setPosition(LWING_MIN_RANGE);}
-
-        public void leftWingIn() {
-            servo2.setPosition(LWING_MAX_RANGE);
+        //Set positions for button pushers
+        public void buttonPushOut(){
+            servo1.setPosition(SERVO1_MAX_RANGE);
+            servo2.setPosition(SERVO1_MAX_RANGE);
+        }
+        public void buttonPushIn(){
+            servo1.setPosition(SERVO1_MIN_RANGE);
+            servo2.setPosition(SERVO1_MIN_RANGE);
         }
 
-        public void rightWingOut() {
-            servo3.setPosition(RWING_MIN_RANGE);
-        }
-        public void rightWingIn() {
-            servo3.setPosition(RWING_MAX_RANGE);
-        }
-        public void dinoUp(){
-            servo4.setPosition(LDINO_MIN_RANGE);
-            servo5.setPosition(RDINO_MIN_RANGE);
-        }
 
-        public void dinoDown (){
-            servo4.setPosition(LDINO_MAX_RANGE);
-            servo5.setPosition(RDINO_MAX_RANGE);
-        }*/
-
-    //lift out
-    public void liftOut() {
-        motor3.setPower(-1);
-        motor4.setPower(1);
-    }
-
-    //lift in
-    public void liftIn() {
-        motor3.setPower(1);
-        motor4.setPower(-1);
-    }
-
-    //stop lift motor
-    public void stoplift() {
-        motor3.setPower(0);
-        motor4.setPower(0);
-        motor2.setPower(0);
-    }
-
-    //lift angle up
+    //lift up
     public void liftUp() {
+        motor1.setPower(-1);
         motor2.setPower(1);
     }
 
-    //lift angle down
+    //lift down
     public void liftDown() {
-        motor2.setPower(-1);
+        motor1.setPower(1);
+        motor1.setPower(-1);
     }
 
-    //angle motor stop
-    public void liftStop() {
+    //stop lift motor
+    public void stopLift() {
+        motor1.setPower(0);
         motor2.setPower(0);
+
     }
+
+    //Start Funnel
+    public void startFunnel(){
+        motor3.setPower(1);
+    }
+
+    //Stop Funnel
+    public void stopFunnel(){
+        motor3.setPower(0);
+    }
+
+
+
+
+
+    //lift angle up
+    //public void liftUp() {
+    //  motor2.setPower(1);
+    //}//
+
+    //lift angle down
+    //public void liftDown() {
+    //  motor2.setPower(-1);
+    //}
+
+    //angle motor stop
+    //public void liftStop() {
+    //  motor2.setPower(0);
+    //}
 }
