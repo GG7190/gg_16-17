@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.greengirls;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 /**
  * Created by Green Girls on 8/2/2016.
  */
@@ -76,20 +78,42 @@ public class GGCore extends GGHardware {
     // had to use math.round to convert a double to an int
     public void runWithEncoders() {
         if (leftBackMotor != null) {
-//            leftBackMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
     public void resetEncoders() {
 
-
-        //
-        // Reset the motor encoders on the drive wheels.
-        //
-//        leftBackMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public boolean encoderCountReached(double rightCount)
+    public boolean lEncoderCountReached(double rightCount) {
+        //
+        // Assume failure.
+        //
+        boolean l_status = false;
+
+        //
+        // Have the encoders reached the specified values?
+        //
+        // TODO Implement stall code using these variables.
+        //
+        if ((Math.abs(leftBackMotor.getCurrentPosition()) > rightCount)) {
+            //
+            // Set the status to a positive indication.
+            //
+            l_status = true;
+        }
+        // Return the status.
+        //
+        // Log.w("ENCODERCOUNTREACHED ","status " + String.valueOf(l_status));
+        // Log.w("ENCODERCOUNTREACHED: ","count " + String.valueOf(rightCount));
+        // Log.w("ENCODERCOUNTREACHED ", "currentPos "+String.valueOf(leftBackMotor.getCurrentPosition()));
+        return l_status;
+
+    }
+
+    public boolean rEncoderCountReached(double rightCount)
     {
         //
         // Assume failure.
@@ -101,7 +125,7 @@ public class GGCore extends GGHardware {
         //
         // TODO Implement stall code using these variables.
         //
-        if ((Math.abs (leftBackMotor.getCurrentPosition ()) > rightCount))
+        if ((Math.abs (rightBackMotor.getCurrentPosition ()) > rightCount))
         {
             //
             // Set the status to a positive indication.
@@ -112,7 +136,7 @@ public class GGCore extends GGHardware {
         //
         // Return the status.
         //
-  //      Log.w("ENCODERCOUNTREACHED ","status " + String.valueOf(l_status));
+        //      Log.w("ENCODERCOUNTREACHED ","status " + String.valueOf(l_status));
         // Log.w("ENCODERCOUNTREACHED: ","count " + String.valueOf(rightCount));
         //Log.w("ENCODERCOUNTREACHED ", "currentPos "+String.valueOf(leftBackMotor.getCurrentPosition()));
         return l_status;
