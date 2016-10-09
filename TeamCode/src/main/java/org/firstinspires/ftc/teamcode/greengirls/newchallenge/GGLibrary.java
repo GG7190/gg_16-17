@@ -52,17 +52,17 @@ public class GGLibrary extends GGCore {
 
 
     //lift angle up
-    //public void liftUp() {
-    //  motor2.setPower(1);
-    //}//
+    public void liftUp() {
+        motor2.setPower(1);
+    }
 
     //lift angle down
-    //public void liftDown() {
-    //  motor2.setPower(-1);
-    //}
+    public void liftDown() {
+        motor2.setPower(-1);
+    }
 
     //angle motor stop
-    //public void liftStop() {
-    //  motor2.setPower(0);
-    //}
+    public void liftStop() {
+        motor2.setPower(0);
+    }
 }
