@@ -52,16 +52,16 @@ public class GGHardware extends OpMode {
         // remember, the Adafruit sensor is actually two devices.
         // It's an I2C sensor and it's also an LED that can be turned on or off.
         // cdim.setDigitalChannelMode(LED_CHANNEL, DigitalChannelController.Mode.OUTPUT);
-        cdim = hardwareMap.deviceInterfaceModule.get("dim");
-        colorSensor = hardwareMap.colorSensor.get("color");
-        colorSensor.enableLed(false);
-        cdim.setDigitalChannelState(LED_CHANNEL, false);
+        //cdim = hardwareMap.deviceInterfaceModule.get("dim");
+        //colorSensor = hardwareMap.colorSensor.get("color");
+        //colorSensor.enableLed(false);
+        //cdim.setDigitalChannelState(LED_CHANNEL, false);
 
         //map touch sensor
-        touchSensor = hardwareMap.touchSensor.get("touch");
+       // touchSensor = hardwareMap.touchSensor.get("touch");
 
         //map gyro
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
+        //gyroSensor = hardwareMap.gyroSensor.get("gyro");
 
         //Map Hardware
 
