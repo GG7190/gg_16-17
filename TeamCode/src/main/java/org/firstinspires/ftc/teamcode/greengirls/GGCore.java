@@ -9,7 +9,7 @@ public class GGCore extends GGHardware {
 
     protected final static double SERVO1_MIN_RANGE  = 0.00;
     protected final static double SERVO1_MID_RANGE  = 0.45;
-    protected final static double SERVO1_MAX_RANGE  = 1.00;
+    protected final static double SERVO1_MAX_RANGE  = 0.90;
 
 
     //servo1 positions
@@ -29,7 +29,7 @@ public class GGCore extends GGHardware {
     //above 0= forward, below 0= backward, 0= not moving
     //right set
     public void setRightMotors(double power){
-        rightFrontMotor.setPower(.9*power);
+        rightFrontMotor.setPower(-.9*power);
         rightBackMotor.setPower(power);
     }
 
@@ -42,7 +42,7 @@ public class GGCore extends GGHardware {
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(.9*power);
+        leftFrontMotor.setPower(-.9*power);
         leftBackMotor.setPower(power);
     }
 

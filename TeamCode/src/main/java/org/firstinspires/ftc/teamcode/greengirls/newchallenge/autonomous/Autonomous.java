@@ -23,7 +23,8 @@ public class Autonomous extends GGLibrary {
                 runWithEncoders();
 
                 //
-                if (encoderCountReached(5850)) {
+                if (count<40) {
+                    //WRONG CODE HAD TO GET TELEOP WORKING
 
                     resetEncoders();
 

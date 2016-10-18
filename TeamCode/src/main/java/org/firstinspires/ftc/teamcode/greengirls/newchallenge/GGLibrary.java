@@ -27,7 +27,7 @@ public class GGLibrary extends GGCore {
     //lift down
     public void liftDown() {
         motor1.setPower(1);
-        motor1.setPower(-1);
+        motor2.setPower(-1);
     }
 
     //stop lift motor

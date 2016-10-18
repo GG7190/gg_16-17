@@ -83,16 +83,16 @@ public class GGHardware extends OpMode {
         //Map hardware for attachment motor controller 2
         attachmentMotorController2 = hardwareMap.dcMotorController.get("attachment2");
         motor3 = hardwareMap.dcMotor.get("motor3");
-        motor4 = hardwareMap.dcMotor.get("motor4");
+       // motor4 = hardwareMap.dcMotor.get("motor4");
 
         //Map hardware for servo controller
         servoController = hardwareMap.servoController.get("servo");
         servo1 = hardwareMap.servo.get("servo1");
         servo2 = hardwareMap.servo.get("servo2");
-        servo3 = hardwareMap.servo.get("servo3");
-        servo4 = hardwareMap.servo.get("servo4");
-        servo5 = hardwareMap.servo.get("servo5");
-        servo6 = hardwareMap.servo.get("servo6");
+      //  servo3 = hardwareMap.servo.get("servo3");
+        //servo4 = hardwareMap.servo.get("servo4");
+        //servo5 = hardwareMap.servo.get("servo5");
+        //servo6 = hardwareMap.servo.get("servo6");
 
         hardwareMap.logDevices();
 
