@@ -39,6 +39,9 @@ public class GGHardware extends OpMode {
     public DeviceInterfaceModule cdim;
     public TouchSensor touchSensor;
     public GyroSensor gyroSensor;
+    public ColorSensor sensorRGB1;
+    public ColorSensor sensorRGB2;
+
 
     static final int LED_CHANNEL = 5;
 
@@ -63,6 +66,9 @@ public class GGHardware extends OpMode {
         //map gyro
         //gyroSensor = hardwareMap.gyroSensor.get("gyro");
 
+        //map colour sensors
+        sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
+        sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
         //Map Hardware
 
         //Map hardware for Right motor controller
