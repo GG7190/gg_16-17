@@ -69,6 +69,7 @@ public class GGHardware extends OpMode {
         //map colour sensors
         sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
         sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
+
         //Map Hardware
 
         //Map hardware for Right motor controller

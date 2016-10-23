@@ -3,17 +3,17 @@ package org.firstinspires.ftc.teamcode.greengirls.newchallenge;
 import org.firstinspires.ftc.teamcode.greengirls.GGCore;
 
 /**
- * Created by User on 8/2/2016.
+* Created by User on 8/2/2016.
  */
 public class GGLibrary extends GGCore {
 
         //Set positions for button pushers
         public void buttonPushOut(){
-            servo1.setPosition(SERVO1_MAX_RANGE);
+            servo1.setPosition(SERVO1_MIN_RANGE);
             servo2.setPosition(SERVO1_MAX_RANGE);
         }
         public void buttonPushIn(){
-            servo1.setPosition(SERVO1_MIN_RANGE);
+            servo1.setPosition(SERVO1_MAX_RANGE);
             servo2.setPosition(SERVO1_MIN_RANGE);
         }
 

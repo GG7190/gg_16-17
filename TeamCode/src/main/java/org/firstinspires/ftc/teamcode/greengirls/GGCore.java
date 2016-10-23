@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Green Girls on 8/2/2016.
  */
-public class GGCore extends GGHardware {
+public class   GGCore extends GGHardware {
 
     protected final static double SERVO1_MIN_RANGE  = 0.00;
     protected final static double SERVO1_MID_RANGE  = 0.45;
