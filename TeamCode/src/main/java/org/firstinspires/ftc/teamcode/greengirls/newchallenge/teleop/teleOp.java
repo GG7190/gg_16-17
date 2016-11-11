@@ -32,8 +32,8 @@ public class teleOp extends GGLibrary {
         else {
             stopLift();
         }
-        //Button Pusher movements in teleop
 
+        //Button Pusher movements in teleop
         if (gamepad2.right_bumper){
             buttonPushOut();
         }

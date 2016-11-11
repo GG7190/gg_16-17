@@ -5,11 +5,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Green Girls on 8/2/2016.
  */
-public class   GGCore extends GGHardware {
+public class GGCore extends GGHardware {
 
     protected final static double SERVO1_MIN_RANGE  = 0.00;
     protected final static double SERVO1_MID_RANGE  = 0.45;
     protected final static double SERVO1_MAX_RANGE  = 0.90;
+    boolean colourTrigger = false;
+    boolean colourReady = false;
+    final int threshold = 4;
+    double speed = 0;
+    double rightSpeed = 0;
+    double leftSpeed = 0;
+    int errorLeft = 0;
+    int errorRight = 0;
+    int alpha1 = 0;
+    int alpha2 = 0;
 
 
     //servo1 positions
@@ -67,15 +77,102 @@ public class   GGCore extends GGHardware {
         motor1.setPower(0);
     }
 
-    public boolean checkRed (){
-        return colorSensor.red()>0;
-    }
+    //public boolean checkRed (){
+    //    return colorSensor.red()>0;
+    //}
 
-    public boolean checkBlue (){return colorSensor.blue()>0;}
+    //public boolean checkBlue (){return colorSensor.blue()>0;}
 
 
     //the set up of encoders
     // had to use math.round to convert a double to an int
+
+    public void runWithColor(int encoderCount, boolean center) {
+
+        resetEncoders();
+
+        if (center) {
+
+
+            //turn until we reach white on the left sensor
+            setRightMotors(1);
+            setLeftMotors(-1);
+            while (!colourTrigger) {
+                alpha1 = sensorRGB1.alpha();
+                alpha2 = sensorRGB2.alpha();
+                if (alpha1 > 15) {
+                    // the left sensor is detecting white, go to next step.
+                    setRightMotors(0);
+                    setLeftMotors(0);
+                    colourTrigger = true;
+                }
+            }
+            colourTrigger = false;
+            //while left color sensor value is not white then keep turning
+            setRightMotors(-1);
+            setLeftMotors(1);
+            while (!colourTrigger) {
+                alpha1 = sensorRGB1.alpha();
+                alpha2 = sensorRGB2.alpha();
+                if (alpha2 > 15) {
+                    //the right sensor is detecting white, we good
+                    setRightMotors(0);
+                    setLeftMotors(0);
+                    colourTrigger = true;
+                }
+            }
+            colourTrigger = false;
+        }
+        colourReady = false;
+
+        runWithEncoders();
+
+        while (!colourReady) {
+
+            //get the alpha levels for the colour sensors (alpha ~ white)
+            alpha1 = sensorRGB1.alpha();
+            alpha2 = sensorRGB2.alpha();
+
+            //evaluate if the sensor is detecting more white than we want
+            errorLeft = alpha1 - threshold;
+            errorRight = alpha2 - threshold;
+
+            // we don't want negative error levels
+            if (errorLeft < 0) {
+                errorLeft = 0;
+            }
+            if (errorRight < 0) {
+                errorRight = 0;
+            }
+
+            //adjust the speed for the wheels according to the error levels detected
+            leftSpeed = speed - (speed * (errorLeft * .1)) + (speed * (errorRight * .1));
+            rightSpeed = speed + (speed * (errorLeft * .1)) - (speed * (errorRight * .1));
+
+            //set the speed
+            setLeftMotors(leftSpeed);
+            setRightMotors(rightSpeed);
+
+            //use telemetry for debugging and tweaking purposes
+            telemetry.addData("leftSpeed", leftSpeed);
+            telemetry.addData("rightSpeed", rightSpeed);
+            telemetry.addData("Alpha1", alpha1);
+            telemetry.addData("Alpha2", alpha2);
+            telemetry.update();
+            if (rEncoderCountReached(encoderCount)) {
+                // we are done, finish up and reset stuff
+                colourReady = true;
+                setRightMotors(0);
+                setLeftMotors(0);
+                resetEncoders();
+            }
+        }
+        colourReady = false;
+
+
+    }
+
+
     public void runWithEncoders() {
         if (leftBackMotor != null) {
             leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

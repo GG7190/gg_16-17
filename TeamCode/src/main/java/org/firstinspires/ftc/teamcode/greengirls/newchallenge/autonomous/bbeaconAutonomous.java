@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import android.util.Log;
-
+import org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous.colourFollowTest;
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 
 /**
@@ -25,7 +25,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(1850)) {
+                if (lEncoderCountReached(850)) {
 
                     resetEncoders();
                     stopLeftMotors();
@@ -102,10 +102,20 @@ public class bbeaconAutonomous extends GGLibrary {
                 //use the color sensors to get to the beacon strait
                 runWithEncoders();
 
+                //sense the white line on both sides
+                //while right color sensor value is not white then keep turning
+                    //setRightMotors(1);
+                    //setLeftMotors(0);
+
+                //while left color sensor value is not white then keep turning
+                    //setRightMotors(0);
+                    //setLeftMotors(1);
+
+                //after checking if we are over the white line, drive forward
+
                 //if the colors sensor doesn't sense white
                 //setLeftMotors(1);
                 //setRightMotors(1);
-
                 //if right color sensor senses white then correct itself
                 //setLeftMotors(1);
                 //setRightMotors(0);
@@ -113,10 +123,12 @@ public class bbeaconAutonomous extends GGLibrary {
                 //setLeftMotors(0);
                 //setRightMotors(1);
                 //else keep driving until it reaches the beacon
+
                 //if (rEncoderCountReached(100)){
                 //resetEncoders();
                 //stopRightMotors();
                 //stopLeftMotors();
+
                 state++;
                 Log.w("State 6 ", String.valueOf(state));
                 break;
@@ -131,12 +143,16 @@ public class bbeaconAutonomous extends GGLibrary {
 
             case 8:
                 //sense the left for blue
+
                 //if the left side of the beacon is blue
                 //push left button
                 state++;
                 //else
                 //push right button
                 //state++;
+                //if whatever side was pushed check the other side to see if it has changed color to match our team color
+                //state++;
+                //else press button/re-adjust until both sides match
                 Log.w("State 8 ", String.valueOf(state));
                 break;
 
@@ -147,7 +163,6 @@ public class bbeaconAutonomous extends GGLibrary {
                 //if the colors sensor doesn't sense white
                 //setLeftMotors(-1);
                 //setRightMotors(-1);
-
                 //if right color sensor senses white then correct itself
                 //setLeftMotors(-1);
                 //setRightMotors(0);
@@ -155,6 +170,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 //setLeftMotors(0);
                 //setRightMotors(-1);
                 //else keep driving until it reaches the beacon
+
                 //if (rEncoderCountReached(100)){
                 //resetEncoders();
                 //stopRightMotors();
@@ -271,10 +287,20 @@ public class bbeaconAutonomous extends GGLibrary {
                 //use the color sensors to get to the beacon strait
                 runWithEncoders();
 
+                //sense the white line on both sides
+                //while right color sensor value is not white then keep turning
+                //setRightMotors(1);
+                //setLeftMotors(0);
+
+                //while left color sensor value is not white then keep turning
+                //setRightMotors(0);
+                //setLeftMotors(1);
+
+                //after checking if we are over the white line, drive forward
+
                 //if the colors sensor doesn't sense white
                 //setLeftMotors(1);
                 //setRightMotors(1);
-
                 //if right color sensor senses white then correct itself
                 //setLeftMotors(1);
                 //setRightMotors(0);
@@ -282,6 +308,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 //setLeftMotors(0);
                 //setRightMotors(1);
                 //else keep driving until it reaches the beacon
+
                 //if (rEncoderCountReached(100)){
                 //resetEncoders();
                 //stopRightMotors();
@@ -306,6 +333,9 @@ public class bbeaconAutonomous extends GGLibrary {
                 //else
                 //push right button
                 //state++;
+                //if whatever side was pushed check the other side to see if it has changed color to match our team color
+                //state++;
+                //else press button/re-adjust until both sides match
                 Log.w("State 20 ", String.valueOf(state));
                 break;
 
@@ -316,7 +346,6 @@ public class bbeaconAutonomous extends GGLibrary {
                 //if the colors sensor doesn't sense white
                 //setLeftMotors(-1);
                 //setRightMotors(-1);
-
                 //if right color sensor senses white then correct itself
                 //setLeftMotors(-1);
                 //setRightMotors(0);
@@ -324,6 +353,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 //setLeftMotors(0);
                 //setRightMotors(-1);
                 //else keep driving until it reaches the beacon
+
                 //if (rEncoderCountReached(100)){
                 //resetEncoders();
                 //stopRightMotors();

@@ -35,11 +35,12 @@ public class GGHardware extends OpMode {
     public Servo servo4;
     public Servo servo5;
     public Servo servo6;
-    public ColorSensor colorSensor;
     public DeviceInterfaceModule cdim;
     public TouchSensor touchSensor;
     public GyroSensor gyroSensor;
+    //this sensor must be on the left side
     public ColorSensor sensorRGB1;
+    //this sensor must be on the right side
     public ColorSensor sensorRGB2;
 
 
@@ -60,13 +61,14 @@ public class GGHardware extends OpMode {
         //colorSensor.enableLed(false);
         //cdim.setDigitalChannelState(LED_CHANNEL, false);
 
-        //map touch sensor
+        //map touch sensor\
        // touchSensor = hardwareMap.touchSensor.get("touch");
 
         //map gyro
         //gyroSensor = hardwareMap.gyroSensor.get("gyro");
 
         //map colour sensors
+        cdim = hardwareMap.deviceInterfaceModule.get("dim");
         sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
         sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
 
