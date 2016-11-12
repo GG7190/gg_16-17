@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.greengirls;
 
+import com.qualcomm.hardware.adafruit.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -42,6 +43,7 @@ public class GGHardware extends OpMode {
     public ColorSensor sensorRGB1;
     //this sensor must be on the right side
     public ColorSensor sensorRGB2;
+    public BNO055IMU imu;
 
 
     static final int LED_CHANNEL = 5;

@@ -2,10 +2,15 @@ package org.firstinspires.ftc.teamcode.greengirls;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 /**
  * Created by Green Girls on 8/2/2016.
  */
 public class GGCore extends GGHardware {
+
+
 
     protected final static double SERVO1_MIN_RANGE  = 0.00;
     protected final static double SERVO1_MID_RANGE  = 0.45;
@@ -13,13 +18,14 @@ public class GGCore extends GGHardware {
     boolean colourTrigger = false;
     boolean colourReady = false;
     final int threshold = 4;
-    double speed = 0;
     double rightSpeed = 0;
     double leftSpeed = 0;
     int errorLeft = 0;
     int errorRight = 0;
     int alpha1 = 0;
     int alpha2 = 0;
+    Orientation angles;
+    Acceleration gravity;
 
 
     //servo1 positions
@@ -87,7 +93,7 @@ public class GGCore extends GGHardware {
     //the set up of encoders
     // had to use math.round to convert a double to an int
 
-    public void runWithColor(int encoderCount, boolean center) {
+    public void runWithColor(int encoderCount, boolean center, double speed) {
 
         resetEncoders();
 
@@ -95,8 +101,8 @@ public class GGCore extends GGHardware {
 
 
             //turn until we reach white on the left sensor
-            setRightMotors(1);
-            setLeftMotors(-1);
+            setRightMotors(speed);
+            setLeftMotors(-speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
                 alpha2 = sensorRGB2.alpha();
@@ -109,8 +115,8 @@ public class GGCore extends GGHardware {
             }
             colourTrigger = false;
             //while left color sensor value is not white then keep turning
-            setRightMotors(-1);
-            setLeftMotors(1);
+            setRightMotors(-speed);
+            setLeftMotors(speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
                 alpha2 = sensorRGB2.alpha();
