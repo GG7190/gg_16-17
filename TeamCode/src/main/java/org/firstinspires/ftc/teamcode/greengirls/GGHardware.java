@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.greengirls;
 
 import com.qualcomm.hardware.adafruit.BNO055IMU;
+import com.qualcomm.hardware.adafruit.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -43,7 +44,10 @@ public class GGHardware extends OpMode {
     public ColorSensor sensorRGB1;
     //this sensor must be on the right side
     public ColorSensor sensorRGB2;
+    //this sensor detects the red v.s. blue of the light we press
+    public ColorSensor sensorRGB3;
     public BNO055IMU imu;
+    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
 
     static final int LED_CHANNEL = 5;
@@ -73,6 +77,7 @@ public class GGHardware extends OpMode {
         cdim = hardwareMap.deviceInterfaceModule.get("dim");
         sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
         sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
+        sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
 
         //Map Hardware
 
@@ -103,7 +108,18 @@ public class GGHardware extends OpMode {
       //  servo3 = hardwareMap.servo.get("servo3");
         //servo4 = hardwareMap.servo.get("servo4");
         //servo5 = hardwareMap.servo.get("servo5");
-        //servo6 = hardwareMap.servo.get("servo6");
+        //servo6 = hardwareMap.servo.get("servo6")'
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "AdafruitIMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
+        // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
+        // and named "imu".
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         hardwareMap.logDevices();
 

@@ -49,7 +49,7 @@ public class rbeaconAutonomous extends GGLibrary {
                 //turn to face beacon
                 runWithEncoders();
 
-                setLeftMotors(0);
+                setLeftMotors(-1);
                 setRightMotors(1);
 
                 //turn to face beacon

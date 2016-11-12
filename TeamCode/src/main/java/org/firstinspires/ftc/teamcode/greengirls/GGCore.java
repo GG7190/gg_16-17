@@ -24,8 +24,10 @@ public class GGCore extends GGHardware {
     int errorRight = 0;
     int alpha1 = 0;
     int alpha2 = 0;
+    double turnSpeed;
     Orientation angles;
-    Acceleration gravity;
+
+
 
 
     //servo1 positions
@@ -176,6 +178,31 @@ public class GGCore extends GGHardware {
         colourReady = false;
 
 
+    }
+    void turnToHeading(String direction, double heading) {
+        if (direction == "left") {
+            turnSpeed = -1;
+        }
+        if (direction == "right") {
+            turnSpeed = 1;
+        }
+
+    }
+
+    boolean checkColor(String colour) {
+        if (sensorRGB3.red() > sensorRGB3.blue()) {
+            if (colour == "red") {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (colour == "blue") {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 
