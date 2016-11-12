@@ -102,7 +102,7 @@ public class rbeaconAutonomous extends GGLibrary {
             case 6:
 
                 //runWithColor(encoder count, true/false self-centering);
-                runWithColor(100, true);
+                runWithColor(100, true, 1);
 
                 state++;
                 Log.w("State 6 ", String.valueOf(state));
@@ -133,23 +133,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 9:
                 //back up until off white line using the color sensors
-                runWithEncoders();
+                runWithColor(100, true, -1);
 
-                //if the colors sensor doesn't sense white
-                    //setLeftMotors(-1);
-                    //setRightMotors(-1);
-
-                //if right color sensor senses white then correct itself
-                    //setLeftMotors(-1);
-                    //setRightMotors(0);
-                //if left color sensor senses white then correct itself
-                    //setLeftMotors(0);
-                    //setRightMotors(-1);
-                //else keep driving until it reaches the beacon
-                    //if (rEncoderCountReached(100)){
-                        //resetEncoders();
-                        //stopRightMotors();
-                        //stopLeftMotors();
                 state++;
                 Log.w("State 9 ", String.valueOf(state));
                 break;
@@ -260,34 +245,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 18:
                 //use the color sensors to get to the beacon strait
-                runWithEncoders();
+                runWithColor(100, true, 1);
 
-                //sense the white line on both sides
-                //while right color sensor value is not white then keep turning
-                //setRightMotors(1);
-                //setLeftMotors(0);
-
-                //while left color sensor value is not white then keep turning
-                //setRightMotors(0);
-                //setLeftMotors(1);
-
-                //after checking if we are over the white line, drive forward
-
-                //if the colors sensor doesn't sense white
-                //setLeftMotors(1);
-                //setRightMotors(1);
-                //if right color sensor senses white then correct itself
-                //setLeftMotors(1);
-                //setRightMotors(0);
-                //if left color sensor senses white then correct itself
-                //setLeftMotors(0);
-                //setRightMotors(1);
-                //else keep driving until it reaches the beacon
-
-                //if (rEncoderCountReached(100)){
-                //resetEncoders();
-                //stopRightMotors();
-                //stopLeftMotors();
                 state++;
                 Log.w("State 18 ", String.valueOf(state));
                 break;
@@ -316,23 +275,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 21:
                 //back up until off white line using the color sensors
-                runWithEncoders();
+                runWithColor(100, true, -1);
 
-                //if the colors sensor doesn't sense white
-                //setLeftMotors(-1);
-                //setRightMotors(-1);
-
-                //if right color sensor senses white then correct itself
-                //setLeftMotors(-1);
-                //setRightMotors(0);
-                //if left color sensor senses white then correct itself
-                //setLeftMotors(0);
-                //setRightMotors(-1);
-                //else keep driving until it reaches the beacon
-                //if (rEncoderCountReached(100)){
-                //resetEncoders();
-                //stopRightMotors();
-                //stopLeftMotors();
                 state++;
                 Log.w("State 21 ", String.valueOf(state));
                 break;
