@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import android.util.Log;
-
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 
 /**
@@ -47,21 +46,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 2:
                 //turn to face beacon
-                runWithEncoders();
-
-                setLeftMotors(-1);
-                setRightMotors(1);
-
-                //turn to face beacon
-                if(rEncoderCountReached(90)){
-
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
-
-                    state++;
-                }
-
+                turnToHeading("left", 90);
+                state++;
                 Log.w("State 2 ", String.valueOf(state));
                 break;
 
@@ -117,17 +103,8 @@ public class rbeaconAutonomous extends GGLibrary {
                 break;
 
             case 8:
-                //sense the left for red
-                //if the left side of the beacon is red
-                    //push left button
-                    state++;
-                //else
-                    //push right button
-                    //state++;
-
-                //if whatever side was pushed check the other side to see if it has changed color to match our team color
-                    //state++;
-                //else press button/re-adjust until both sides match
+                checkColor("red");
+                state++;
                 Log.w("State 8 ", String.valueOf(state));
                 break;
 
@@ -149,19 +126,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 11:
                 //turn right
-                runWithEncoders();
-
-                setRightMotors(1);
-                setLeftMotors(0);
-
-                if (rEncoderCountReached(90)){
-
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
-
+                turnToHeading("right", 120);
                     state++;
-                }
                 Log.w("State 11 ", String.valueOf(state));
                 break;
 
@@ -201,19 +167,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 15:
                 //turn left to face the beacon
-                runWithEncoders();
-
-                setRightMotors(0);
-                setLeftMotors(1);
-
-                if (lEncoderCountReached(90)){
-
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
-
-                    state++;
-                }
+                turnToHeading("left", 90);
+                state++;
                 Log.w("State 15 ", String.valueOf(state));
                 break;
 
@@ -261,15 +216,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 20:
                 //sense the left for red
-                //if the left side of the beacon is red
-                //push left button
+                checkColor("red");
                 state++;
-                //else
-                //push right button
-                //state++;
-                //if whatever side was pushed check the other side to see if it has changed color to match our team color
-                //state++;
-                //else press button/re-adjust until both sides match
                 Log.w("State 20 ", String.valueOf(state));
                 break;
 
@@ -291,19 +239,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 23:
                 //turn left to face the center structure
-                runWithEncoders();
-
-                setLeftMotors(1);
-                setRightMotors(0);
-
-                if (lEncoderCountReached(125)){
-
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
-
-                    state++;
-                }
+                turnToHeading("left", 45);
+                state++;
                 Log.w("State 23 ", String.valueOf(state));
                 break;
 

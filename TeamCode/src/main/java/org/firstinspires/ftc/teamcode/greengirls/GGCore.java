@@ -15,6 +15,9 @@ public class GGCore extends GGHardware {
     protected final static double SERVO1_MIN_RANGE  = 0.00;
     protected final static double SERVO1_MID_RANGE  = 0.45;
     protected final static double SERVO1_MAX_RANGE  = 0.90;
+    protected final static double SERVO2_MIN_RANGE  = 0.00;
+    protected final static double SERVO2_MID_RANGE  = 0.45;
+    protected final static double SERVO2_MAX_RANGE  = 0.90;
     boolean colourTrigger = false;
     boolean colourReady = false;
     final int threshold = 4;
@@ -41,6 +44,18 @@ public class GGCore extends GGHardware {
 
     public void maxServo1() {
         servo1.setPosition(SERVO1_MAX_RANGE);
+    }
+
+    public void minServo2() {
+        servo2.setPosition(SERVO2_MIN_RANGE);
+    }
+
+    public void midServo2() {
+        servo2.setPosition(SERVO2_MID_RANGE);
+    }
+
+    public void maxServo2() {
+        servo2.setPosition(SERVO2_MAX_RANGE);
     }
 
     //setters and getters for all motors for use outside this program
@@ -179,31 +194,51 @@ public class GGCore extends GGHardware {
 
 
     }
-    void turnToHeading(String direction, double heading) {
-        if (direction == "left") {
+
+    public void turnToHeading(String direction, double heading)
+    {
+        if (direction == "left")
+        {
             turnSpeed = -1;
         }
-        if (direction == "right") {
+        if (direction == "right")
+        {
             turnSpeed = 1;
         }
 
     }
 
-    boolean checkColor(String colour) {
-        if (sensorRGB3.red() > sensorRGB3.blue()) {
-            if (colour == "red") {
+    public boolean checkColor(String colour)
+    {
+        if (sensorRGB3.red() > sensorRGB3.blue())
+        {
+            if (colour == "red")
+            {
+                maxServo1();
                 return true;
-            } else {
+            }
+            else
+            {
+                maxServo2();
                 return false;
             }
-        } else {
-            if (colour == "blue") {
+        }
+        else
+        {
+            if (colour == "blue")
+            {
+                maxServo1();
                 return true;
-            } else {
+            }
+            else
+            {
+                maxServo2();
                 return false;
             }
         }
     }
+
+
 
 
     public void runWithEncoders() {
