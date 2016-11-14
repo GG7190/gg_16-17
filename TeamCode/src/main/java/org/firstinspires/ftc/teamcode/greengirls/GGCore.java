@@ -3,7 +3,12 @@ package org.firstinspires.ftc.teamcode.greengirls;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+import java.util.Locale;
 
 /**
  * Created by Green Girls on 8/2/2016.
@@ -28,6 +33,8 @@ public class GGCore extends GGHardware {
     int alpha1 = 0;
     int alpha2 = 0;
     double turnSpeed;
+    double newHeading;
+    double currentHeading;
     Orientation angles;
 
 
@@ -205,22 +212,28 @@ public class GGCore extends GGHardware {
         {
             turnSpeed = 1;
         }
+        angles   = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
+
+        currentHeading = AngleUnit.DEGREES.normalize(angles.firstAngle);
+
+        newHeading = currentHeading - heading;
+
+
+
 
     }
 
-    public boolean checkColor(String colour)
+    public void checkColor(String colour)
     {
         if (sensorRGB3.red() > sensorRGB3.blue())
         {
             if (colour == "red")
             {
                 maxServo1();
-                return true;
             }
             else
             {
                 maxServo2();
-                return false;
             }
         }
         else
@@ -228,12 +241,10 @@ public class GGCore extends GGHardware {
             if (colour == "blue")
             {
                 maxServo1();
-                return true;
             }
             else
             {
                 maxServo2();
-                return false;
             }
         }
     }
