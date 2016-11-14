@@ -212,12 +212,25 @@ public class GGCore extends GGHardware {
         {
             turnSpeed = 1;
         }
-        angles   = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
 
-        currentHeading = AngleUnit.DEGREES.normalize(angles.firstAngle);
+        currentHeading = getHeading();
 
         newHeading = currentHeading - heading;
 
+        setRightMotors(turnSpeed);
+        setLeftMotors(turnSpeed);
+
+        while (currentHeading != newHeading) {
+            currentHeading = getHeading();
+        }
+        setRightMotors(0);
+        setLeftMotors(0);
+
+    }
+
+    public double getHeading() {
+        angles   = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
+        return AngleUnit.DEGREES.normalize(angles.firstAngle);
 
 
 
