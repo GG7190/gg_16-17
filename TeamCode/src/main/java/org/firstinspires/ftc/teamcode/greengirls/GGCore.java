@@ -230,10 +230,32 @@ public class GGCore extends GGHardware {
             if (colour == "red")
             {
                 maxServo1();
+                runWithEncoders();
+
+                setLeftMotors(1);
+                setRightMotors(1);
+
+                if (lEncoderCountReached(850)) {
+
+                    resetEncoders();
+                    stopLeftMotors();
+                    stopRightMotors();
+                }
             }
             else
             {
                 maxServo2();
+                runWithEncoders();
+
+                setLeftMotors(1);
+                setRightMotors(1);
+
+                if (lEncoderCountReached(850)) {
+
+                    resetEncoders();
+                    stopLeftMotors();
+                    stopRightMotors();
+                }
             }
         }
         else
@@ -241,10 +263,32 @@ public class GGCore extends GGHardware {
             if (colour == "blue")
             {
                 maxServo1();
+                runWithEncoders();
+
+                setLeftMotors(1);
+                setRightMotors(1);
+
+                if (lEncoderCountReached(100)) {
+
+                    resetEncoders();
+                    stopLeftMotors();
+                    stopRightMotors();
+                }
             }
             else
             {
                 maxServo2();
+                runWithEncoders();
+
+                setLeftMotors(1);
+                setRightMotors(1);
+
+                if (lEncoderCountReached(100)) {
+
+                    resetEncoders();
+                    stopLeftMotors();
+                    stopRightMotors();
+                }
             }
         }
     }
