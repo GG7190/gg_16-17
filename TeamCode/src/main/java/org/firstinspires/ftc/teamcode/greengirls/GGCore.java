@@ -215,7 +215,7 @@ public class GGCore extends GGHardware {
 
         currentHeading = getHeading();
 
-        newHeading = currentHeading - heading;
+        newHeading = currentHeading + heading;
 
         setRightMotors(turnSpeed);
         setLeftMotors(turnSpeed);
