@@ -46,7 +46,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 2:
                 //turn to face beacon
-                turnToHeading("left", 90);
+                turnToHeading(90);
                 state++;
                 Log.w("State 2 ", String.valueOf(state));
                 break;
@@ -126,7 +126,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 11:
                 //turn right
-                turnToHeading("right", 120);
+                turnToHeading(120);
                     state++;
                 Log.w("State 11 ", String.valueOf(state));
                 break;
@@ -167,7 +167,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 15:
                 //turn left to face the beacon
-                turnToHeading("left", 90);
+                turnToHeading(90);
                 state++;
                 Log.w("State 15 ", String.valueOf(state));
                 break;
@@ -239,7 +239,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 23:
                 //turn left to face the center structure
-                turnToHeading("left", 45);
+                turnToHeading(45);
                 state++;
                 Log.w("State 23 ", String.valueOf(state));
                 break;

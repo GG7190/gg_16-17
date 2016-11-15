@@ -202,13 +202,13 @@ public class GGCore extends GGHardware {
 
     }
 
-    public void turnToHeading(String direction, double heading)
+    public void turnToHeading(double heading)
     {
-        if (direction == "left")
+        if (heading < 0)
         {
             turnSpeed = -1;
         }
-        if (direction == "right")
+        if (heading > 0)
         {
             turnSpeed = 1;
         }
@@ -218,7 +218,7 @@ public class GGCore extends GGHardware {
         newHeading = currentHeading + heading;
 
         setRightMotors(turnSpeed);
-        setLeftMotors(turnSpeed);
+        setLeftMotors(-turnSpeed);
 
         while (currentHeading != newHeading) {
             currentHeading = getHeading();
