@@ -10,11 +10,11 @@ public class GGLibrary extends GGCore {
         //Set positions for button pushers
         public void buttonPushOut(){
             servo1.setPosition(SERVO1_MIN_RANGE);
-            servo2.setPosition(SERVO1_MAX_RANGE);
+            servo2.setPosition(SERVO2_MIN_RANGE);
         }
         public void buttonPushIn(){
             servo1.setPosition(SERVO1_MAX_RANGE);
-            servo2.setPosition(SERVO1_MIN_RANGE);
+            servo2.setPosition(SERVO2_MAX_RANGE);
         }
 
 

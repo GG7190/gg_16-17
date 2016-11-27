@@ -74,10 +74,10 @@ public class GGHardware extends OpMode {
         //gyroSensor = hardwareMap.gyroSensor.get("gyro");
 
         //map colour sensors
-        cdim = hardwareMap.deviceInterfaceModule.get("dim");
-        sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
-        sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
-        sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
+     //   cdim = hardwareMap.deviceInterfaceModule.get("dim");
+       // sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
+        //sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
+        //sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
 
         //Map Hardware
 
@@ -97,8 +97,8 @@ public class GGHardware extends OpMode {
         motor2 = hardwareMap.dcMotor.get("motor2");
 
         //Map hardware for attachment motor controller 2
-        attachmentMotorController2 = hardwareMap.dcMotorController.get("attachment2");
-        motor3 = hardwareMap.dcMotor.get("motor3");
+       // attachmentMotorController2 = hardwareMap.dcMotorController.get("attachment2");
+       // motor3 = hardwareMap.dcMotor.get("motor3");
        // motor4 = hardwareMap.dcMotor.get("motor4");
 
         //Map hardware for servo controller
@@ -109,17 +109,17 @@ public class GGHardware extends OpMode {
         //servo4 = hardwareMap.servo.get("servo4");
         //servo5 = hardwareMap.servo.get("servo5");
         //servo6 = hardwareMap.servo.get("servo6")'
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "AdafruitIMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+      //  parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        //parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+       // parameters.calibrationDataFile = "AdafruitIMUCalibration.json"; // see the calibration sample opmode
+        //parameters.loggingEnabled      = true;
+        //parameters.loggingTag          = "IMU";
+        //parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
         // and named "imu".
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+       // imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         hardwareMap.logDevices();
 

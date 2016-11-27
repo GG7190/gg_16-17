@@ -2,11 +2,12 @@ package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import android.util.Log;
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 /**
  * Created by User on 10/9/2016.
  */
-
+@Autonomous (name="rbeaconAutonomous", group="rbeaconAutonomous")
 public class rbeaconAutonomous extends GGLibrary {
 
     //set state to zero
@@ -25,7 +26,7 @@ public class rbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(1850)) {
+                if (lEncoderCountReached(150)) {
 
                     resetEncoders();
                     stopLeftMotors();

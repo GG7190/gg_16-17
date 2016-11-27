@@ -17,12 +17,12 @@ public class GGCore extends GGHardware {
 
 
 
-    protected final static double SERVO1_MIN_RANGE  = 0.00;
+    protected final static double SERVO1_MIN_RANGE  = 0.10;
     protected final static double SERVO1_MID_RANGE  = 0.45;
-    protected final static double SERVO1_MAX_RANGE  = 0.90;
-    protected final static double SERVO2_MIN_RANGE  = 0.00;
+    protected final static double SERVO1_MAX_RANGE  = 0.99;
+    protected final static double SERVO2_MIN_RANGE  = 0.10;
     protected final static double SERVO2_MID_RANGE  = 0.45;
-    protected final static double SERVO2_MAX_RANGE  = 0.90;
+    protected final static double SERVO2_MAX_RANGE  = 0.99;
     boolean colourTrigger = false;
     boolean colourReady = false;
     final int threshold = 4;
@@ -69,7 +69,7 @@ public class GGCore extends GGHardware {
     //above 0= forward, below 0= backward, 0= not moving
     //right set
     public void setRightMotors(double power){
-        rightFrontMotor.setPower(-.9*power);
+        rightFrontMotor.setPower(power);
         rightBackMotor.setPower(power);
     }
 
@@ -82,7 +82,7 @@ public class GGCore extends GGHardware {
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(-.9*power);
+        leftFrontMotor.setPower(power);
         leftBackMotor.setPower(power);
     }
 
@@ -126,7 +126,7 @@ public class GGCore extends GGHardware {
 
             //turn until we reach white on the left sensor
             setRightMotors(speed);
-            setLeftMotors(-speed);
+            setLeftMotors(speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
                 alpha2 = sensorRGB2.alpha();
@@ -139,7 +139,7 @@ public class GGCore extends GGHardware {
             }
             colourTrigger = false;
             //while left color sensor value is not white then keep turning
-            setRightMotors(-speed);
+            setRightMotors(speed);
             setLeftMotors(speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
