@@ -26,14 +26,16 @@ public class rbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(150)) {
 
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
+                while (!lEncoderCountReached(150)) {
 
-                    state++;
                 }
+
+                resetEncoders();
+                stopLeftMotors();
+                stopRightMotors();
+
+                state++;
                 Log.w("State 0 ", String.valueOf(state));
                 break;
 
