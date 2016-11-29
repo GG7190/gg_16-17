@@ -13,6 +13,7 @@ public class rbeaconAutonomous extends GGLibrary {
     //set state to zero
     int state = 0;
     int count = 0;
+    boolean reached = false;
 
     @Override
     public void loop() {
@@ -24,12 +25,11 @@ public class rbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
+                //looop
 
-                while (!lEncoderCountReached(150)) {
-
-                }
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
                 resetEncoders();
                 stopLeftMotors();
@@ -49,7 +49,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 2:
                 //turn to face beacon
-                turnToHeading(90);
+               // //turnToHeading(90);
                 state++;
                 Log.w("State 2 ", String.valueOf(state));
                 break;
@@ -69,14 +69,13 @@ public class rbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (rEncoderCountReached(100)){
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
                 Log.w("State 4 ", String.valueOf(state));
                 break;
 
@@ -129,7 +128,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 11:
                 //turn right
-                turnToHeading(120);
+                //turnToHeading(120);
                     state++;
                 Log.w("State 11 ", String.valueOf(state));
                 break;
@@ -149,14 +148,14 @@ public class rbeaconAutonomous extends GGLibrary {
                 setRightMotors(1);
                 setLeftMotors(1);
 
-                if (rEncoderCountReached(300)){
+                waitForEncodersReduxVersionTwoPointZero(4000);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
+
                 Log.w("State 13 ", String.valueOf(state));
                 break;
 
@@ -170,7 +169,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 15:
                 //turn left to face the beacon
-                turnToHeading(90);
+                //turnToHeading(90);
                 state++;
                 Log.w("State 15 ", String.valueOf(state));
                 break;
@@ -182,14 +181,14 @@ public class rbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (rEncoderCountReached(100)){
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
+
                 Log.w("State 16 ", String.valueOf(state));
                 break;
 
@@ -242,7 +241,8 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 23:
                 //turn left to face the center structure
-                turnToHeading(45);
+                //turnToHeading
+                // (45);
                 state++;
                 Log.w("State 23 ", String.valueOf(state));
                 break;
@@ -262,14 +262,13 @@ public class rbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(125)){
+                waitForEncodersReduxVersionTwoPointZero(1800);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
                 Log.w("State 25 ", String.valueOf(state));
                 break;
 

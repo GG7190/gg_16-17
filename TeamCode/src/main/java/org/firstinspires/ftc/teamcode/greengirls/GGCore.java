@@ -35,6 +35,7 @@ public class GGCore extends GGHardware {
     double turnSpeed;
     double newHeading;
     double currentHeading;
+    boolean reached;
     Orientation angles;
 
 
@@ -189,7 +190,7 @@ public class GGCore extends GGHardware {
             telemetry.addData("Alpha1", alpha1);
             telemetry.addData("Alpha2", alpha2);
             telemetry.update();
-            if (rEncoderCountReached(encoderCount)) {
+            if (lEncoderCountReached(encoderCount)) {
                 // we are done, finish up and reset stuff
                 colourReady = true;
                 setRightMotors(0);
@@ -200,6 +201,19 @@ public class GGCore extends GGHardware {
         colourReady = false;
 
 
+    }
+
+    public void waitForEncodersReduxVersionTwoPointZero(int encoderAmount) {
+        reached = false;
+        while (!reached) {
+            if (leftBackMotor.getCurrentPosition() > encoderAmount) {
+                reached = true;
+            } else {
+                telemetry.addData("curPos", leftBackMotor.getCurrentPosition());
+                telemetry.update();
+            }
+        }
+        reached = false;
     }
 
     public void turnToHeading(double heading)
@@ -246,14 +260,14 @@ public class GGCore extends GGHardware {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
-                if (lEncoderCountReached(850)) {
+                waitForEncodersReduxVersionTwoPointZero(850);
 
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
-                }
+                resetEncoders();
+                stopLeftMotors();
+                stopRightMotors();
+
             }
             else
             {
@@ -263,12 +277,12 @@ public class GGCore extends GGHardware {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(850)) {
+                waitForEncodersReduxVersionTwoPointZero(850);
 
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
-                }
+                resetEncoders();
+                stopLeftMotors();
+                stopRightMotors();
+
             }
         }
         else
@@ -281,12 +295,12 @@ public class GGCore extends GGHardware {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(100)) {
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
-                }
+                resetEncoders();
+                stopLeftMotors();
+                stopRightMotors();
+
             }
             else
             {
@@ -296,12 +310,12 @@ public class GGCore extends GGHardware {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(100)) {
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
-                }
+                resetEncoders();
+                stopLeftMotors();
+                stopRightMotors();
+
             }
         }
     }
