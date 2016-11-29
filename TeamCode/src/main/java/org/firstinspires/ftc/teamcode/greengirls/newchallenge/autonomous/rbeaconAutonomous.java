@@ -48,8 +48,15 @@ public class rbeaconAutonomous extends GGLibrary {
                 break;
 
             case 2:
+                runWithEncoders();
                 //turn to face beacon
                // //turnToHeading(90);
+                setLeftMotors(-1);
+                setRightMotors(-1);
+                waitForEncodersReduxVersionTwoPointZero(450);
+                resetEncoders();
+                setRightMotors(0);
+                setLeftMotors(0);
                 state++;
                 Log.w("State 2 ", String.valueOf(state));
                 break;

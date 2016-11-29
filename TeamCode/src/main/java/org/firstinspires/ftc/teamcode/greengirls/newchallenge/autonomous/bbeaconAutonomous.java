@@ -1,21 +1,23 @@
 package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import android.util.Log;
-import org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous.colourFollowTest;
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 /**
- * Created by User on 10/16/2016.
+ * Created by User on 10/9/2016.
  */
-
+@Autonomous (name="bbeaconAutonomous", group="bbeaconAutonomous")
 public class bbeaconAutonomous extends GGLibrary {
 
     //set state to zero
     int state = 0;
     int count = 0;
+    boolean reached = false;
 
     @Override
     public void loop() {
+
 
         switch (state) {
             case 0:
@@ -23,16 +25,17 @@ public class bbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
-                if (lEncoderCountReached(850)) {
+                //looop
 
-                    resetEncoders();
-                    stopLeftMotors();
-                    stopRightMotors();
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    state++;
-                }
+                resetEncoders();
+                stopLeftMotors();
+                stopRightMotors();
+
+                state++;
                 Log.w("State 0 ", String.valueOf(state));
                 break;
 
@@ -45,8 +48,15 @@ public class bbeaconAutonomous extends GGLibrary {
                 break;
 
             case 2:
+                runWithEncoders();
                 //turn to face beacon
-                ////turnToHeading(90);
+                // //turnToHeading(90);
+                setLeftMotors(-1);
+                setRightMotors(-1);
+                waitForEncodersReduxVersionTwoPointZero(450);
+                resetEncoders();
+                setRightMotors(0);
+                setLeftMotors(0);
                 state++;
                 Log.w("State 2 ", String.valueOf(state));
                 break;
@@ -66,14 +76,13 @@ public class bbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (rEncoderCountReached(100)){
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
                 Log.w("State 4 ", String.valueOf(state));
                 break;
 
@@ -86,7 +95,8 @@ public class bbeaconAutonomous extends GGLibrary {
                 break;
 
             case 6:
-                //use the color sensors to get to the beacon strait
+
+                //runWithColor(encoder count, true/false self-centering);
                 runWithColor(100, true, 1);
 
                 state++;
@@ -108,7 +118,9 @@ public class bbeaconAutonomous extends GGLibrary {
                 break;
 
             case 9:
+                //back up until off white line using the color sensors
                 runWithColor(100, true, -1);
+
                 state++;
                 Log.w("State 9 ", String.valueOf(state));
                 break;
@@ -143,14 +155,14 @@ public class bbeaconAutonomous extends GGLibrary {
                 setRightMotors(1);
                 setLeftMotors(1);
 
-                if (rEncoderCountReached(300)){
+                waitForEncodersReduxVersionTwoPointZero(4000);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
+
                 Log.w("State 13 ", String.valueOf(state));
                 break;
 
@@ -176,14 +188,14 @@ public class bbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (rEncoderCountReached(100)){
+                waitForEncodersReduxVersionTwoPointZero(1500);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
+
                 Log.w("State 16 ", String.valueOf(state));
                 break;
 
@@ -212,6 +224,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 break;
 
             case 20:
+                //sense the left for blue
                 checkColor("blue");
                 state++;
                 Log.w("State 20 ", String.valueOf(state));
@@ -235,7 +248,8 @@ public class bbeaconAutonomous extends GGLibrary {
 
             case 23:
                 //turn left to face the center structure
-                //turnToHeading(45);
+                //turnToHeading
+                // (45);
                 state++;
                 Log.w("State 23 ", String.valueOf(state));
                 break;
@@ -255,14 +269,13 @@ public class bbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(1);
 
-                if (lEncoderCountReached(125)){
+                waitForEncodersReduxVersionTwoPointZero(1800);
 
-                    resetEncoders();
-                    stopRightMotors();
-                    stopLeftMotors();
+                resetEncoders();
+                stopRightMotors();
+                stopLeftMotors();
 
-                    state++;
-                }
+                state++;
                 Log.w("State 25 ", String.valueOf(state));
                 break;
 
@@ -276,4 +289,3 @@ public class bbeaconAutonomous extends GGLibrary {
         }
     }
 }
-
