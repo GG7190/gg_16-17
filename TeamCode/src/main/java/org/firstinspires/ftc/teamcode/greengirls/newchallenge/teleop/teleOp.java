@@ -18,8 +18,13 @@ public class teleOp extends GGLibrary {
     {
         //JOYSTICK ONE
         //Wheels being controlled by left and right sticks
-        setRightMotors(gamepad1.left_stick_y);
-        setLeftMotors(-gamepad1.right_stick_y);
+        setRightMotors(gamepad1.right_stick_y);
+        setLeftMotors(-gamepad1.left_stick_y);
+
+        telemetry.addData("alpha1", sensorRGB1.alpha());
+        telemetry.addData("alpha2", sensorRGB2.alpha());
+        telemetry.addData("alpha3", sensorRGB3.alpha());
+        telemetry.update();
 
         //JOYSTICK TWO
         //Lift movements in teleop

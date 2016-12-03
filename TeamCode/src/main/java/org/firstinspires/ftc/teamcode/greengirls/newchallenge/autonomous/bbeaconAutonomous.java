@@ -21,6 +21,7 @@ public class bbeaconAutonomous extends GGLibrary {
 
         switch (state) {
             case 0:
+                resetEncoders();
                 //drive and line up with first beacon
                 runWithEncoders();
 
@@ -31,12 +32,16 @@ public class bbeaconAutonomous extends GGLibrary {
 
                 waitForEncodersReduxVersionTwoPointZero(1500);
 
-                resetEncoders();
+
                 stopLeftMotors();
                 stopRightMotors();
 
+                resetEncoders();
+
                 state++;
-                Log.w("State 0 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 0 ", String.valueOf(state));
                 break;
 
             case 1:
@@ -44,7 +49,9 @@ public class bbeaconAutonomous extends GGLibrary {
                 if (have_drive_encoders_reset()) {
                     state++;
                 }
-                Log.w("State 1 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+               // Log.w("State 1 ", String.valueOf(state));
                 break;
 
             case 2:
@@ -53,12 +60,14 @@ public class bbeaconAutonomous extends GGLibrary {
                 // //turnToHeading(90);
                 setLeftMotors(-1);
                 setRightMotors(-1);
-                waitForEncodersReduxVersionTwoPointZero(450);
-                resetEncoders();
+                waitForEncodersReduxVersionTwoPointZero(1150);
                 setRightMotors(0);
                 setLeftMotors(0);
+                resetEncoders();
                 state++;
-                Log.w("State 2 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 2 ", String.valueOf(state));
                 break;
 
             case 3:
@@ -66,7 +75,9 @@ public class bbeaconAutonomous extends GGLibrary {
                 if (have_drive_encoders_reset()) {
                     state++;
                 }
-                Log.w("State 3 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 3 ", String.valueOf(state));
                 break;
 
             case 4:
@@ -74,16 +85,20 @@ public class bbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
                 waitForEncodersReduxVersionTwoPointZero(1500);
 
-                resetEncoders();
+
                 stopRightMotors();
                 stopLeftMotors();
 
+                resetEncoders();
+
                 state++;
-                Log.w("State 4 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 4 ", String.valueOf(state));
                 break;
 
             case 5:
@@ -91,16 +106,21 @@ public class bbeaconAutonomous extends GGLibrary {
                 if (have_drive_encoders_reset()) {
                     state++;
                 }
-                Log.w("State 5 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 5 ", String.valueOf(state));
                 break;
 
             case 6:
 
                 //runWithColor(encoder count, true/false self-centering);
-                runWithColor(100, true, 1);
+                runWithColor(1500, true, .5);
+
 
                 state++;
-                Log.w("State 6 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 6 ", String.valueOf(state));
                 break;
 
             case 7:

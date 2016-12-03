@@ -121,7 +121,7 @@ public class GGCore extends GGHardware {
     public void runWithColor(int encoderCount, boolean center, double speed) {
 
         resetEncoders();
-
+        runWithEncoders();
         if (center) {
 
 
@@ -137,11 +137,15 @@ public class GGCore extends GGHardware {
                     setLeftMotors(0);
                     colourTrigger = true;
                 }
+                telemetry.addData("speed", speed);
+                telemetry.addData("alpha1", alpha1);
+                telemetry.addData("alpha2", alpha2);
+                telemetry.update();
             }
             colourTrigger = false;
             //while left color sensor value is not white then keep turning
-            setRightMotors(speed);
-            setLeftMotors(speed);
+            setRightMotors(-speed);
+            setLeftMotors(-speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
                 alpha2 = sensorRGB2.alpha();
@@ -178,7 +182,7 @@ public class GGCore extends GGHardware {
 
             //adjust the speed for the wheels according to the error levels detected
             leftSpeed = speed - (speed * (errorLeft * .1)) + (speed * (errorRight * .1));
-            rightSpeed = speed + (speed * (errorLeft * .1)) - (speed * (errorRight * .1));
+            rightSpeed = -speed + (speed * (errorLeft * .1)) - (speed * (errorRight * .1));
 
             //set the speed
             setLeftMotors(leftSpeed);
@@ -190,13 +194,11 @@ public class GGCore extends GGHardware {
             telemetry.addData("Alpha1", alpha1);
             telemetry.addData("Alpha2", alpha2);
             telemetry.update();
-            if (lEncoderCountReached(encoderCount)) {
-                // we are done, finish up and reset stuff
+            waitForEncodersReduxVersionTwoPointZero(encoderCount);
                 colourReady = true;
                 setRightMotors(0);
                 setLeftMotors(0);
                 resetEncoders();
-            }
         }
         colourReady = false;
 
@@ -205,8 +207,10 @@ public class GGCore extends GGHardware {
 
     public void waitForEncodersReduxVersionTwoPointZero(int encoderAmount) {
         reached = false;
+        telemetry.addData("oldPos", leftBackMotor.getCurrentPosition());
+        telemetry.update();
         while (!reached) {
-            if (leftBackMotor.getCurrentPosition() > encoderAmount) {
+            if (Math.abs(leftBackMotor.getCurrentPosition()) > encoderAmount) {
                 reached = true;
             } else {
                 telemetry.addData("curPos", leftBackMotor.getCurrentPosition());
@@ -256,7 +260,7 @@ public class GGCore extends GGHardware {
         {
             if (colour == "red")
             {
-                maxServo1();
+              //  maxServo1();
                 runWithEncoders();
 
                 setLeftMotors(1);
@@ -267,11 +271,12 @@ public class GGCore extends GGHardware {
                 resetEncoders();
                 stopLeftMotors();
                 stopRightMotors();
+                minServo1();
 
             }
             else
             {
-                maxServo2();
+                //maxServo2();
                 runWithEncoders();
 
                 setLeftMotors(1);
@@ -282,6 +287,7 @@ public class GGCore extends GGHardware {
                 resetEncoders();
                 stopLeftMotors();
                 stopRightMotors();
+                //minServo2();
 
             }
         }
@@ -289,7 +295,7 @@ public class GGCore extends GGHardware {
         {
             if (colour == "blue")
             {
-                maxServo1();
+             //   maxServo1();
                 runWithEncoders();
 
                 setLeftMotors(1);
@@ -300,11 +306,12 @@ public class GGCore extends GGHardware {
                 resetEncoders();
                 stopLeftMotors();
                 stopRightMotors();
+                //minServo1();
 
             }
             else
             {
-                maxServo2();
+             // maxServo2();
                 runWithEncoders();
 
                 setLeftMotors(1);
@@ -315,6 +322,7 @@ public class GGCore extends GGHardware {
                 resetEncoders();
                 stopLeftMotors();
                 stopRightMotors();
+                //minServo2();
 
             }
         }
@@ -359,6 +367,7 @@ public class GGCore extends GGHardware {
         return l_status;
 
     }
+
 
     public boolean rEncoderCountReached(double rightCount)
     {
