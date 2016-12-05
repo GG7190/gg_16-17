@@ -23,7 +23,8 @@ public class colorTest extends LinearOpMode {
    // DeviceInterfaceModule dim2;
    ColorSensor sensorRGB3;
     ColorSensor sensorRGB2;
-    I2cAddr sensorRGB2Addr = new I2cAddr(0x4c);
+    I2cAddr sensorRGB2Addr = new I2cAddr(0x10);
+    I2cAddr sensorRGB3Addr = new I2cAddr(0x12);
 
 
     @Override
@@ -38,6 +39,7 @@ public class colorTest extends LinearOpMode {
         sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
         sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
         sensorRGB2.setI2cAddress(sensorRGB2Addr);
+        sensorRGB3.setI2cAddress(sensorRGB3Addr);
 
         // bEnabled represents the state of the LED.
         boolean bEnabled = true;
