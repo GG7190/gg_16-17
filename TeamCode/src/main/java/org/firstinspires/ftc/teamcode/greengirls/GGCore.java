@@ -134,7 +134,7 @@ public class GGCore extends GGHardware {
             setLeftMotors(speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
-                al`pha2 = sensorRGB2.alpha();
+                alpha2 = sensorRGB2.alpha();
                 if (alpha1 > 15) {
                     // the left sensor is detecting white, go to next step.
                     setRightMotors(0);
