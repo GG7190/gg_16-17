@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -74,10 +75,14 @@ public class GGHardware extends OpMode {
         //gyroSensor = hardwareMap.gyroSensor.get("gyro");
 
         //map colour sensors
-     //   cdim = hardwareMap.deviceInterfaceModule.get("dim");
-       // sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
-        //sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
-        //sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
+        cdim = hardwareMap.deviceInterfaceModule.get("dim");
+        sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
+        sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
+        sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
+        sensorRGB2.setI2cAddress(I2cAddr.create8bit(0x10));
+        sensorRGB3.setI2cAddress(I2cAddr.create8bit(0x12));
+        sensorRGB1.enableLed(true);
+        sensorRGB2.enableLed(true);
 
         //Map Hardware
 
@@ -102,9 +107,9 @@ public class GGHardware extends OpMode {
        // motor4 = hardwareMap.dcMotor.get("motor4");
 
         //Map hardware for servo controller
-        servoController = hardwareMap.servoController.get("servo");
-        servo1 = hardwareMap.servo.get("servo1");
-        servo2 = hardwareMap.servo.get("servo2");
+        //servoController = hardwareMap.servoController.get("servo");
+        //servo1 = hardwareMap.servo.get("servo1");
+        //servo2 = hardwareMap.servo.get("servo2");
       //  servo3 = hardwareMap.servo.get("servo3");
         //servo4 = hardwareMap.servo.get("servo4");
         //servo5 = hardwareMap.servo.get("servo5");

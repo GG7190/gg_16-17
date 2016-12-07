@@ -10,6 +10,7 @@ import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.ftcrobotcontroller.R;
 import com.qualcomm.robotcore.eventloop.opmode.*;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 
 /**
  * Created by User on 9/26/2016.
@@ -17,7 +18,11 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @TeleOp(name = "colorTest", group = "Tests")
 public class colorTest extends LinearOpMode {
-   ColorSensor sensorRGB;
+    ColorSensor sensorRGB1; ColorSensor sensorRGB2; ColorSensor sensorRGB3;
+
+    I2cAddr sensorRGB2Addr = new I2cAddr(0x10);
+    I2cAddr sensorRGB3Addr = new I2cAddr(0x12);
+
 
 
     @Override
@@ -28,13 +33,18 @@ public class colorTest extends LinearOpMode {
         hardwareMap.logDevices();
 
         // get a reference to our ColorSensor object.
-        sensorRGB = hardwareMap.colorSensor.get("sensorColour");
+        sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
+        sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
+        sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
+
+
 
         // bEnabled represents the state of the LED.
         boolean bEnabled = true;
 
         // turn the LED on in the beginning, just so user will know that the sensor is active.
-        sensorRGB.enableLed(true);
+        sensorRGB1.enableLed(true);
+        sensorRGB2.enableLed(true);
 
         // wait one cycle.
         waitOneFullHardwareCycle();
@@ -75,7 +85,9 @@ public class colorTest extends LinearOpMode {
                 bEnabled = true;
 
                 // turn on the LED.
-                sensorRGB.enableLed(bEnabled);
+                sensorRGB1.enableLed(bEnabled);
+                sensorRGB2.enableLed(bEnabled);
+                sensorRGB3.enableLed(bEnabled);
             } else if (bCurrState == false && bCurrState != bPrevState) {
                 // button is transitioning to a released state.
 
@@ -89,19 +101,29 @@ public class colorTest extends LinearOpMode {
                 bEnabled = false;
 
                 // turn off the LED.
-                sensorRGB.enableLed(false);
+                sensorRGB1.enableLed(false);
+                sensorRGB2.enableLed(false);
+                sensorRGB3.enableLed(false);
             }
 
             // convert the RGB values to HSV values.
             //Color.RGBToHSV((colorSensor.red() * 8), (colorSensor.green() * 8), (colorSensor.blue() * 8), hsvValues);
-            Color.RGBToHSV(sensorRGB.red() * 8, sensorRGB.green() * 8, sensorRGB.blue() * 8, hsvValues);
+            Color.RGBToHSV(sensorRGB1.red() * 8, sensorRGB1.green() * 8, sensorRGB1.blue() * 8, hsvValues);
 
             // send the info back to driver station using telemetry function.
-            telemetry.addData("Clear", sensorRGB.alpha());
-            telemetry.addData("Red  ", sensorRGB.red());
-            telemetry.addData("Green", sensorRGB.green());
-            telemetry.addData("Blue ", sensorRGB.blue());
-            telemetry.addData("Hue", hsvValues[0]);
+            telemetry.addData("Clear", sensorRGB1.alpha());
+            telemetry.addData("Red  ", sensorRGB1.red());
+            telemetry.addData("Green", sensorRGB1.green());
+            telemetry.addData("Blue ", sensorRGB1.blue());
+            telemetry.addData("Clear", sensorRGB2.alpha());
+            telemetry.addData("Red  ", sensorRGB2.red());
+            telemetry.addData("Green", sensorRGB2.green());
+            telemetry.addData("Blue ", sensorRGB2.blue());
+            telemetry.addData("Clear", sensorRGB3.alpha());
+            telemetry.addData("Red  ", sensorRGB3.red());
+            telemetry.addData("Green", sensorRGB3.green());
+            telemetry.addData("Blue ", sensorRGB3.blue());
+            telemetry.update();
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument

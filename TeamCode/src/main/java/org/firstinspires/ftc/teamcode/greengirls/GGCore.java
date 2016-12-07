@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.greengirls;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -42,6 +45,7 @@ public class GGCore extends GGHardware {
 
 
     //servo1 positions
+
     public void minServo1() {
         servo1.setPosition(SERVO1_MIN_RANGE);
     }
@@ -130,13 +134,16 @@ public class GGCore extends GGHardware {
             setLeftMotors(speed);
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
-                alpha2 = sensorRGB2.alpha();
+                al`pha2 = sensorRGB2.alpha();
                 if (alpha1 > 15) {
                     // the left sensor is detecting white, go to next step.
                     setRightMotors(0);
                     setLeftMotors(0);
                     colourTrigger = true;
                 }
+                telemetry.addData("alpha1", alpha1);
+                telemetry.addData("alpha2", alpha2);
+                telemetry.update();
             }
             colourTrigger = false;
             //while left color sensor value is not white then keep turning
@@ -151,6 +158,9 @@ public class GGCore extends GGHardware {
                     setLeftMotors(0);
                     colourTrigger = true;
                 }
+                telemetry.addData("alpha1", alpha1);
+                telemetry.addData("alpha2", alpha2);
+                telemetry.update();
             }
             colourTrigger = false;
         }
@@ -206,10 +216,10 @@ public class GGCore extends GGHardware {
     public void waitForEncodersReduxVersionTwoPointZero(int encoderAmount) {
         reached = false;
         while (!reached) {
-            if (leftBackMotor.getCurrentPosition() > encoderAmount) {
+            if (Math.abs(leftBackMotor.getCurrentPosition()) > encoderAmount) {
                 reached = true;
             } else {
-                telemetry.addData("curPos", leftBackMotor.getCurrentPosition());
+                telemetry.addData("curPos", Math.abs(leftBackMotor.getCurrentPosition()));
                 telemetry.update();
             }
         }
