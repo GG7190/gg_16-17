@@ -74,8 +74,8 @@ public class GGCore extends GGHardware {
     //above 0= forward, below 0= backward, 0= not moving
     //right set
     public void setRightMotors(double power){
-        rightFrontMotor.setPower(power);
-        rightBackMotor.setPower(-power);
+        rightFrontMotor.setPower(power*.8);
+        rightBackMotor.setPower(-power*.8);
     }
 
 
@@ -87,8 +87,8 @@ public class GGCore extends GGHardware {
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(power);
-        leftBackMotor.setPower(-power);
+        leftFrontMotor.setPower(-power*.8);
+        leftBackMotor.setPower(power);
     }
 
     //stop left motors
@@ -125,6 +125,10 @@ public class GGCore extends GGHardware {
     public void runWithColor(int encoderCount, boolean center, double speed) {
 
         resetEncoders();
+
+
+        sensorRGB1.enableLed(true);
+        sensorRGB2.enableLed(true);
 
         if (center) {
 
@@ -393,8 +397,8 @@ public class GGCore extends GGHardware {
         //
         // Return the status.
         //
-        //      Log.w("ENCODERCOUNTREACHED ","status " + String.valueOf(l_status));
-        // Log.w("ENCODERCOUNTREACHED: ","count " + String.valueOf(rightCount));
+         //Log.w("ENCODERCOUNTREACHED ","status " + String.valueOf(l_status));
+         //Log.w("ENCODERCOUNTREACHED: ","count " + String.valueOf(rightCount));
         //Log.w("ENCODERCOUNTREACHED ", "currentPos "+String.valueOf(leftBackMotor.getCurrentPosition()));
         return l_status;
     }

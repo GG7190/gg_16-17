@@ -36,6 +36,8 @@ public class colorTest extends LinearOpMode {
         sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
         sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
         sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
+        sensorRGB2.setI2cAddress(I2cAddr.create8bit(0x10));
+        sensorRGB3.setI2cAddress(I2cAddr.create8bit(0x12));
 
 
 

@@ -102,24 +102,24 @@ public class GGHardware extends OpMode {
         motor2 = hardwareMap.dcMotor.get("motor2");
 
         //Map hardware for attachment motor controller 2
-       // attachmentMotorController2 = hardwareMap.dcMotorController.get("attachment2");
-       // motor3 = hardwareMap.dcMotor.get("motor3");
+       attachmentMotorController2 = hardwareMap.dcMotorController.get("attachment2");
+        motor3 = hardwareMap.dcMotor.get("motor3");
        // motor4 = hardwareMap.dcMotor.get("motor4");
 
         //Map hardware for servo controller
-        //servoController = hardwareMap.servoController.get("servo");
-        //servo1 = hardwareMap.servo.get("servo1");
-        //servo2 = hardwareMap.servo.get("servo2");
+        servoController = hardwareMap.servoController.get("servo");
+        servo1 = hardwareMap.servo.get("servo1");
+        servo2 = hardwareMap.servo.get("servo2");
       //  servo3 = hardwareMap.servo.get("servo3");
         //servo4 = hardwareMap.servo.get("servo4");
-        //servo5 = hardwareMap.servo.get("servo5");
-        //servo6 = hardwareMap.servo.get("servo6")'
-      //  parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        //parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-       // parameters.calibrationDataFile = "AdafruitIMUCalibration.json"; // see the calibration sample opmode
-        //parameters.loggingEnabled      = true;
-        //parameters.loggingTag          = "IMU";
-        //parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+     //   servo5 = hardwareMap.servo.get("servo5");
+       // servo6 = hardwareMap.servo.get("servo6");
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "AdafruitIMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
@@ -129,10 +129,10 @@ public class GGHardware extends OpMode {
         hardwareMap.logDevices();
 
         // get a reference to our DeviceInterfaceModule object.
-        // cdim = hardwareMap.deviceInterfaceModule.get("dim");
+         cdim = hardwareMap.deviceInterfaceModule.get("dim");
 
         // get a reference to our ColorSensor object.
-        // colorSensor = hardwareMap.colorSensor.get("color");
+       // colorSensor = hardwareMap.colorSensor.get("color");
 
     }
 

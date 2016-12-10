@@ -13,17 +13,31 @@ import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 @TeleOp(name="teleOp", group = "teleOp")
 public class teleOp extends GGLibrary {
 
+    double rSpeed = 0;
+    double lSpeed = 0;
 
     @Override public void loop()
     {
         //JOYSTICK ONE
         //Wheels being controlled by left and right sticks
-        setRightMotors(gamepad1.right_stick_y);
-        setLeftMotors(-gamepad1.left_stick_y);
+        // (( -Y - Z ) * ((-slider+1)/2))) * fluff;
 
-        telemetry.addData("alpha1", sensorRGB1.alpha());
-        telemetry.addData("alpha2", sensorRGB2.alpha());
-        telemetry.addData("alpha3", sensorRGB3.alpha());
+
+
+        //RIGHT 1 = 1
+        //LEFT -1 = 1
+
+        rSpeed = (( gamepad1.right_stick_y + gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * 1;
+        lSpeed = (( gamepad1.right_stick_y - gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * -1;
+
+
+        setRightMotors(rSpeed);
+        setLeftMotors(lSpeed);
+
+        telemetry.addData("rSpeed", rSpeed);
+        telemetry.addData("lSpeed", lSpeed);
+        telemetry.addData("rightY", gamepad1.right_stick_y);
+        telemetry.addData("rightX", gamepad1.right_stick_x);
         telemetry.update();
 
         //JOYSTICK TWO
@@ -46,13 +60,13 @@ public class teleOp extends GGLibrary {
             buttonPushIn();
         }
 
-        //Funnel movement in teleop
-      //  if (gamepad2.b){
-          //  startFunnel();
-       // }
-       // else {
-         //   stopFunnel();
-     //   }
+       // Funnel movement in teleop
+        if (gamepad2.b){
+           startFunnel();
+       }
+        else {
+            stopFunnel();
+       }
 
 
 
