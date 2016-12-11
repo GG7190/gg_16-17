@@ -25,11 +25,11 @@ public class GGHardware extends OpMode {
     public DcMotorController leftMotorController;
     public DcMotor leftFrontMotor;
     public DcMotor leftBackMotor;
-    public DcMotorController attachmentMotorController1;
-    public DcMotor motor1;
-    public DcMotor motor2;
-    public DcMotorController attachmentMotorController2;
-    public DcMotor motor3;
+//    public DcMotorController attachmentMotorController1;
+ //   public DcMotor motor1;
+  //  public DcMotor motor2;
+   // public DcMotorController attachmentMotorController2;
+ //   public DcMotor motor3;
     public DcMotor motor4;
     public ServoController servoController;
     public Servo servo1;
@@ -97,9 +97,9 @@ public class GGHardware extends OpMode {
         leftBackMotor = hardwareMap.dcMotor.get("lback");
 
         //Map hardware for attachment motor controller 1
-        attachmentMotorController1 = hardwareMap.dcMotorController.get("attachment1");
-        motor1 = hardwareMap.dcMotor.get("motor1");
-        motor2 = hardwareMap.dcMotor.get("motor2");
+      //  attachmentMotorController1 = hardwareMap.dcMotorController.get("attachment1");
+       // motor1 = hardwareMap.dcMotor.get("motor1");
+      //  motor2 = hardwareMap.dcMotor.get("motor2");
 
         //Map hardware for attachment motor controller 2
        //attachmentMotorController2 = hardwareMap.dcMotorController.get("attachment2");

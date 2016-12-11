@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 
 import org.firstinspires.ftc.teamcode.greengirls.GGHardware;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -28,7 +29,9 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * and the right wheels would speed up by .3 and vice-versa.
  * This idea of a speed-adjusting line follower tries to negate the 'jumpy'-ness of some line follower code.
  */
+/*
 @Autonomous(name="colourFollowTest", group="Tests")
+@Disabled
 public class colourFollowTest extends LinearOpMode {
     double speed;
 
@@ -114,3 +117,4 @@ public class colourFollowTest extends LinearOpMode {
         setRightMotors(0);
     }
 }
+*/

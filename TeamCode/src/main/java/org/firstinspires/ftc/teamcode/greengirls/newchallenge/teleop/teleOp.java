@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode.greengirls.newchallenge.teleop;
 
+import android.graphics.Path;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 
+
+import org.firstinspires.ftc.teamcode.greengirls.GGHardware;
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 
 /**
@@ -42,15 +47,15 @@ public class teleOp extends GGLibrary {
 
         //JOYSTICK TWO
       //  Lift movements in teleop
-      if (gamepad2.y){
-            liftUp();
-        }
-        else if (gamepad2.a){
-           liftDown();
-        }
-        else {
-           stopLift();
-        }
+   //   if (gamepad2.y){
+    //        liftUp();
+     //   }
+     //   else if (gamepad2.a){
+      //     liftDown();
+       //i }
+       // else {
+        //   stopLift();
+       // }
 
         //Button Pusher movements in teleop
         if (gamepad2.right_bumper){
@@ -67,6 +72,7 @@ public class teleOp extends GGLibrary {
         //else {
           //  stopFunnel();
        //}
+
 
 
 

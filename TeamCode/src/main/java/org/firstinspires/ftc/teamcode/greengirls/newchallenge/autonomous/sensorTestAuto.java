@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -10,7 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 /**
  * Created by User on 8/19/2016.
  */
-
+@Disabled
 public class sensorTestAuto extends OpMode {
 
     public DcMotorController leftMotorController;

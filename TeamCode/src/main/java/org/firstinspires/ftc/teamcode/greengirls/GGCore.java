@@ -98,19 +98,19 @@ public class GGCore extends GGHardware {
     }
 
     //get the power to collector motor
-    public double getMotor1(){
-        return motor1.getPower();
-    }
+   // public double getMotor1(){
+   //     return motor1.getPower();
+    //}
 
     //set the power to collector motor
-    public void setMotor1(double power) {
-        motor1.setPower(power);
-    }
+   // public void setMotor1(double power) {
+    //    motor1.setPower(power);
+   // }
 
     //stop collector
-    public void stopMotor1(){
-        motor1.setPower(0);
-    }
+   // public void stopMotor1(){
+    //    motor1.setPower(0);
+   // }
 
     //public boolean checkRed (){
     //    return colorSensor.red()>0;

@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.I2cAddr;
  */
 
 @TeleOp(name = "colorTest", group = "Tests")
+@Disabled
 public class colorTest extends LinearOpMode {
     ColorSensor sensorRGB1; ColorSensor sensorRGB2; ColorSensor sensorRGB3;
 

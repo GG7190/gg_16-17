@@ -18,22 +18,22 @@ public class GGLibrary extends GGCore {
         }
 
 
-    //lift up
+    /*lift up
     public void liftUp() {
         motor1.setPower(-1);
         motor2.setPower(1);
     }
 
     //lift down
-    public void liftDown() {
+   public void liftDown() {
         motor1.setPower(1);
         motor2.setPower(-1);
     }
 
     //stop lift motor
     public void stopLift() {
-        motor1.setPower(0);
-        motor2.setPower(0);
+       motor1.setPower(0);
+      motor2.setPower(0);
 
     }
 
@@ -46,5 +46,5 @@ public class GGLibrary extends GGCore {
     public void stopFunnel(){
         motor3.setPower(0);
     }
-
+*/
 }

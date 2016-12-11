@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 import android.util.Log;
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /**
  * Created by User on 10/9/2016.
  */
 @Autonomous (name="rbeaconAutonomous", group="rbeaconAutonomous")
+@Disabled
 public class rbeaconAutonomous extends GGLibrary {
 
     //set state to zero

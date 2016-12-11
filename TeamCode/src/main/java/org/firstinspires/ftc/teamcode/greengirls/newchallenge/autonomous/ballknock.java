@@ -12,28 +12,34 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class ballknock extends GGLibrary {
     //set state to zero
     int state = 0;
-    int count = 0;
-    boolean reached = false;
+//    int count = 0;
+ //   boolean reached = false;
 
     @Override
     public void loop() {
 
 
+
+
         switch (state) {
             case 0:
+                resetEncoders();
                 //drive and line up with first beacon
                 runWithEncoders();
 
-                setLeftMotors(1);
-                setRightMotors(-1);
+                setLeftMotors(.55);
+                setRightMotors(.55);
 
                 //looop
 
-                waitForEncodersReduxVersionTwoPointZero(2500);
 
+                waitForEncodersReduxVersionTwoPointZero(3000);
+                //waitForEncodersReduxVersionTwoPointZero(1000);
+                //waitForEncodersReduxVersionTwoPointZero(500);
+                setLeftMotors(0);
+                setRightMotors(0);
                 resetEncoders();
-                stopLeftMotors();
-                stopRightMotors();
+
 
                 state++;
                 Log.w("State 0 ", String.valueOf(state));
