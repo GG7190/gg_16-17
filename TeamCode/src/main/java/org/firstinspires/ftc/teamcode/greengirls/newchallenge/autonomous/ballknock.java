@@ -29,7 +29,7 @@ public class ballknock extends GGLibrary {
 
                 //looop
 
-                waitForEncodersReduxVersionTwoPointZero(5500);
+                waitForEncodersReduxVersionTwoPointZero(2500);
 
                 resetEncoders();
                 stopLeftMotors();
