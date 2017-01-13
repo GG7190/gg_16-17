@@ -32,9 +32,11 @@ public class teleOp extends GGLibrary {
         //RIGHT 1 = 1
         //LEFT -1 = 1
 
-        rSpeed = (( gamepad1.right_stick_y + gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * -1;
+        rSpeed = (( gamepad1.right_stick_y + gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * 1;
         lSpeed = (( gamepad1.right_stick_y - gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * -1;
 
+        //rSpeed = -gamepad1.right_stick_y;
+        //lSpeed = gamepad1.left_stick_y;
 
         setRightMotors(rSpeed);
         setLeftMotors(lSpeed);
@@ -46,36 +48,31 @@ public class teleOp extends GGLibrary {
         telemetry.update();
 
         //JOYSTICK TWO
-      //  Lift movements in teleop
-   //   if (gamepad2.y){
-    //        liftUp();
-     //   }
-     //   else if (gamepad2.a){
-      //     liftDown();
-       //i }
-       // else {
-        //   stopLift();
-       // }
+   //    Lift movements in teleop
+ if (gamepad2.y){
+          liftUp();
+       }
+       else if (gamepad2.a){
+           liftDown();
+        }
+       else {
+          stopLift();
+        }
 
         //Button Pusher movements in teleop
         if (gamepad2.right_bumper){
-            buttonPushOut();
-        }
+           buttonPushOut();
+       }
         if (gamepad2.left_bumper){
-            buttonPushIn();
+           buttonPushIn();
         }
 
        // Funnel movement in teleop
-      //  if (gamepad2.b){
-         //  startFunnel();
-      // }
-        //else {
-          //  stopFunnel();
-       //}
+      if (gamepad2.b){
+         startFunnel();
+      }
 
-
-
-
+         stopFunnel();
 
     }
 }

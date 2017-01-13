@@ -87,8 +87,8 @@ public class GGCore extends GGHardware {
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(-power*.8);
-        leftBackMotor.setPower(power);
+        leftFrontMotor.setPower(power*.8);
+        leftBackMotor.setPower(-power*.8);
     }
 
     //stop left motors

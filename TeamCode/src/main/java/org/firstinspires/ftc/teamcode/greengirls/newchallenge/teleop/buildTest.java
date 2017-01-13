@@ -38,7 +38,7 @@ public class buildTest extends OpMode {
 
     @Override public void init() {
 
-        /*//Map hardware for right motor controller
+        //Map hardware for right motor controller
         rightWheelController = hardwareMap.dcMotorController.get("rightdrive");
         rightFrontMotor = hardwareMap.dcMotor.get("rfront");
         rightBackMotor = hardwareMap.dcMotor.get("rback");
@@ -46,7 +46,7 @@ public class buildTest extends OpMode {
         //Map hardware for Left motor controller
         leftMotorController = hardwareMap.dcMotorController.get("leftdrive");
         leftFrontMotor = hardwareMap.dcMotor.get("lfront");
-        leftBackMotor = hardwareMap.dcMotor.get("lback");*/
+        leftBackMotor = hardwareMap.dcMotor.get("lback");
 
         //Map hardware for wheel motor controller 3
         //wheelController3 = hardwareMap.dcMotorController.get("wheel3");
@@ -54,33 +54,32 @@ public class buildTest extends OpMode {
         //motor2 = hardwareMap.dcMotor.get("motor2");
 
         /*//Map hardware for attachment controller
-        attachmentController = hardwareMap.dcMotorController.get("attachment");
-        motor3 = hardwareMap.dcMotor.get("motor3");
-        motor4 = hardwareMap.dcMotor.get("motor4"); */
+        attachmentController = hardwareMap.dcMotorController.get("attachment")
+                motor4 = hardwareMap.dcMotor.get("motor4"); */
 
-        servoController = hardwareMap.servoController.get("servo");
-        servo1 = hardwareMap.servo.get("servo1");
-        servo2 = hardwareMap.servo.get("servo2");
+       // servoController = hardwareMap.servoController.get("servo");
+        //servo1 = hardwareMap.servo.get("servo1");
+        //servo2 = hardwareMap.servo.get("servo2");
 
     }
 
     @Override public void loop(){
-        //setRightMotors(-gamepad1.left_stick_y);
-        //setLeftMotors(gamepad1.right_stick_y); }
+        setRightMotors(gamepad1.left_stick_y);
+        setLeftMotors(-gamepad1.right_stick_y); }
         //Lift movements in teleop
-        if (gamepad2.a){
-            buttonPushOut();
-        }
-        if (gamepad2.b){
-            buttonPushIn();
-        }
-        if (gamepad2.y){
-            buttonPushOut();
-        }
-        if (gamepad2.x){
-            buttonPushIn();
-        }
-    }
+  //      if (gamepad2.a){
+     //       buttonPushOut();
+       // }
+        //if (gamepad2.b){
+           // buttonPushIn();
+        //}
+       // if (gamepad2.y){
+           // buttonPushOut();
+    //    }
+       // if (gamepad2.x){
+          //  buttonPushIn();
+//        }
+    //}
 
   /*  public void motor1RunF() {
         motor1.setPower(1);
@@ -98,23 +97,23 @@ public class buildTest extends OpMode {
     } */
 
     //Set positions for button pushers
-    public void buttonPushOut(){
-        servo1.setPosition(SERVO1_MIN_RANGE);
-        servo2.setPosition(SERVO1_MAX_RANGE);
-    }
-    public void buttonPushIn(){
-        servo1.setPosition(SERVO1_MAX_RANGE);
-        servo2.setPosition(SERVO1_MIN_RANGE);
-    }
+ //   public void buttonPushOut(){
+    //    servo1.setPosition(SERVO1_MIN_RANGE);
+       // servo2.setPosition(SERVO1_MAX_RANGE);
+   // }
+    //public void buttonPushIn(){
+       // servo1.setPosition(SERVO1_MAX_RANGE);
+       // servo2.setPosition(SERVO1_MIN_RANGE);
+    //}
 
-    public void buttonPushOut2(){
-        servo1.setPosition(SERVO2_MIN_RANGE);
-        servo2.setPosition(SERVO2_MAX_RANGE);
-    }
-    public void buttonPushIn2(){
-        servo1.setPosition(SERVO2_MAX_RANGE);
-        servo2.setPosition(SERVO2_MIN_RANGE);
-    }
+    //public void buttonPushOut2(){
+       // servo1.setPosition(SERVO2_MIN_RANGE);
+        //servo2.setPosition(SERVO2_MAX_RANGE);
+    //}
+    //public void buttonPushIn2(){
+       // servo1.setPosition(SERVO2_MAX_RANGE);
+        //s/ervo2.setPosition(SERVO2_MIN_RANGE);
+   // }
 
     public void setRightMotors(double power){
         rightFrontMotor.setPower(power);

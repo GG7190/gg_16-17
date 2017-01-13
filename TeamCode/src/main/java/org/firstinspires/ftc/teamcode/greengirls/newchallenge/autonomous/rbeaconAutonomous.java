@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 /**
  * Created by User on 10/9/2016.
  */
-@Autonomous (name="rbeaconAutonomous", group="rbeaconAutonomous")
+@Autonomous (name="bbeaconAutonomous", group="bbeaconAutonomous")
 @Disabled
 public class rbeaconAutonomous extends GGLibrary {
 
@@ -23,6 +23,7 @@ public class rbeaconAutonomous extends GGLibrary {
 
         switch (state) {
             case 0:
+                resetEncoders();
                 //drive and line up with first beacon
                 runWithEncoders();
 
@@ -33,12 +34,16 @@ public class rbeaconAutonomous extends GGLibrary {
 
                 waitForEncodersReduxVersionTwoPointZero(1500);
 
-                resetEncoders();
+
                 stopLeftMotors();
                 stopRightMotors();
 
+                resetEncoders();
+
                 state++;
-                Log.w("State 0 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 0 ", String.valueOf(state));
                 break;
 
             case 1:
@@ -46,20 +51,24 @@ public class rbeaconAutonomous extends GGLibrary {
                 if (have_drive_encoders_reset()) {
                     state++;
                 }
-                Log.w("State 1 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                // Log.w("State 1 ", String.valueOf(state));
                 break;
 
             case 2:
                 runWithEncoders();
                 //turn to face beacon
-               // //turnToHeading(90);
+                // //turnToHeading(90);
                 setLeftMotors(-1);
                 setRightMotors(-1);
-                waitForEncodersReduxVersionTwoPointZero(450);
-                resetEncoders();
+                waitForEncodersReduxVersionTwoPointZero(1150);
                 setRightMotors(0);
                 setLeftMotors(0);
+                resetEncoders();
                 state++;
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
                 Log.w("State 2 ", String.valueOf(state));
                 break;
 
@@ -68,7 +77,9 @@ public class rbeaconAutonomous extends GGLibrary {
                 if (have_drive_encoders_reset()) {
                     state++;
                 }
-                Log.w("State 3 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 3 ", String.valueOf(state));
                 break;
 
             case 4:
@@ -76,16 +87,20 @@ public class rbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
                 waitForEncodersReduxVersionTwoPointZero(1500);
 
-                resetEncoders();
+
                 stopRightMotors();
                 stopLeftMotors();
 
+                resetEncoders();
+
                 state++;
-                Log.w("State 4 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 4 ", String.valueOf(state));
                 break;
 
             case 5:
@@ -93,15 +108,20 @@ public class rbeaconAutonomous extends GGLibrary {
                 if (have_drive_encoders_reset()) {
                     state++;
                 }
-                Log.w("State 5 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 5 ", String.valueOf(state));
                 break;
 
             case 6:
 
                 //runWithColor(encoder count, true/false self-centering);
-                runWithColor(100, true, 1);
+                runWithColor(1500, true, .5);
+
 
                 state++;
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
                 Log.w("State 6 ", String.valueOf(state));
                 break;
 
@@ -114,7 +134,7 @@ public class rbeaconAutonomous extends GGLibrary {
                 break;
 
             case 8:
-                checkColor("red");
+                checkColor("Red");
                 state++;
                 Log.w("State 8 ", String.valueOf(state));
                 break;
@@ -137,11 +157,20 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 11:
                 //turn right
-                //turnToHeading(120);
-                    state++;
+                runWithEncoders();
+                //turn to face beacon
+                // //turnToHeading(90);
+                setLeftMotors(-1);
+                setRightMotors(-1);
+                waitForEncodersReduxVersionTwoPointZero(1150);
+                setRightMotors(0);
+                setLeftMotors(0);
+                resetEncoders();
+                state++;
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
                 Log.w("State 11 ", String.valueOf(state));
                 break;
-
             case 12:
                 //check to see if the encoders have reset
                 if (have_drive_encoders_reset()) {
@@ -155,7 +184,7 @@ public class rbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setRightMotors(1);
-                setLeftMotors(1);
+                setLeftMotors(-1);
 
                 waitForEncodersReduxVersionTwoPointZero(4000);
 
@@ -188,7 +217,7 @@ public class rbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
                 waitForEncodersReduxVersionTwoPointZero(1500);
 
@@ -226,8 +255,8 @@ public class rbeaconAutonomous extends GGLibrary {
                 break;
 
             case 20:
-                //sense the left for red
-                checkColor("red");
+                //sense the left for Red
+                checkColor("Red");
                 state++;
                 Log.w("State 20 ", String.valueOf(state));
                 break;
@@ -250,10 +279,19 @@ public class rbeaconAutonomous extends GGLibrary {
 
             case 23:
                 //turn left to face the center structure
-                //turnToHeading
-                // (45);
+                runWithEncoders();
+                //turn to face beacon
+                // //turnToHeading(90);
+                setLeftMotors(1);
+                setRightMotors(1);
+                waitForEncodersReduxVersionTwoPointZero(1150);
+                setRightMotors(0);
+                setLeftMotors(0);
+                resetEncoders();
                 state++;
-                Log.w("State 23 ", String.valueOf(state));
+                telemetry.addData("State", String.valueOf(state));
+                telemetry.update();
+                //Log.w("State 2 ", String.valueOf(state));
                 break;
 
             case 24:
@@ -269,7 +307,7 @@ public class rbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
 
                 setLeftMotors(1);
-                setRightMotors(1);
+                setRightMotors(-1);
 
                 waitForEncodersReduxVersionTwoPointZero(1800);
 
