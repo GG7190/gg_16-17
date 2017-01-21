@@ -29,7 +29,7 @@ public class GGHardware extends OpMode {
     public DcMotor motor1;
     public DcMotor motor2;
     public DcMotorController attachmentMotorController2;
-   public DcMotor motor3;
+    public DcMotor motor3;
     public DcMotor motor4;
     public ServoController servoController;
     public Servo servo1;

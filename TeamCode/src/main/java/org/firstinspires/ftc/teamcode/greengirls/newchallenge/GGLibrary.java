@@ -43,6 +43,7 @@ public class GGLibrary extends GGCore {
     }
 
     //Stop Funnel
+
     public void stopFunnel(){
         motor3.setPower(0);
    }

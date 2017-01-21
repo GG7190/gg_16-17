@@ -68,11 +68,11 @@ public class teleOp extends GGLibrary {
         }
 
        // Funnel movement in teleop
-      if (gamepad2.b){
-         startFunnel();
+      if (gamepad2.b) {
+          startFunnel();
+      } else {
+          stopFunnel();
       }
-
-         stopFunnel();
 
     }
 }

@@ -74,8 +74,8 @@ public class GGCore extends GGHardware {
     //above 0= forward, below 0= backward, 0= not moving
     //right set
     public void setRightMotors(double power){
-        rightFrontMotor.setPower(power*.8);
-        rightBackMotor.setPower(-power*.8);
+        rightFrontMotor.setPower(power);
+        rightBackMotor.setPower(-power);
     }
 
 
@@ -87,8 +87,8 @@ public class GGCore extends GGHardware {
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(power*.8);
-        leftBackMotor.setPower(-power*.8);
+        leftFrontMotor.setPower(power);
+        leftBackMotor.setPower(-power);
     }
 
     //stop left motors
@@ -156,7 +156,7 @@ public class GGCore extends GGHardware {
             while (!colourTrigger) {
                 alpha1 = sensorRGB1.alpha();
                 alpha2 = sensorRGB2.alpha();
-                if (alpha2 > 15) {
+                if (alpha2 > 5) {
                     //the right sensor is detecting white, we good
                     setRightMotors(0);
                     setLeftMotors(0);

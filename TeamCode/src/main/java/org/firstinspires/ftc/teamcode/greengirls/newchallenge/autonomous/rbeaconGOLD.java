@@ -17,8 +17,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 /**
  * Created by Greatsword on 1/16/2017.
  */
-@Autonomous(name="bbeaconGOLD",group="Auto")
-    public class bbeaconGOLD extends LinearOpMode {
+@Autonomous(name="rbeaconGOLD",group="Auto")
+public class rbeaconGOLD extends LinearOpMode {
 
 
     protected final static double SERVO1_MIN_RANGE  = 0.10;
@@ -132,50 +132,42 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 //drive forward
                 moveWithEncoder(1, -1, 1500);
 
-                //turn right
-                moveWithEncoder(1, 1, 1150);
+                //turn left
+                moveWithEncoder(-1, -1, 1150);
 
                 //get to line
                 moveWithEncoder(1, -1, 8350);
 
-                //turn right a little
-               moveWithEncoder(1, 1, 1000);
+                //turn left a little
+                moveWithEncoder(-1, -1, 1000);
 
                 //move forward a little
                 moveWithEncoder(1, -1, 550);
-
-                sleep(4000);
-                //drive back to start
-                moveWithEncoder(-1, 1, 1500);
-                moveWithEncoder(-1, -1, 1150);
-                moveWithEncoder(-1, 1, 8350);
-                moveWithEncoder(-1, -1, 1000);
-                moveWithEncoder(-1, 1, 550);
 
                 finished = true;
                 /*break;
                 //follow line
                 runWithColor(1500, 1);
                 //hit the blue button
-                checkColor("blue");
+                checkColor("red");
                 //back up
                 runWithColor(1500, -1);
-                //turn left
-                moveWithEncoder(-1, -1, 1000);
+                //turn right
+                moveWithEncoder(1, 1, 1000);
                 //drive forward to beacon 2
                 moveWithEncoder(1, -1, 1000);
-                //turn right to face beacon
-                moveWithEncoders(1, 1, 1000);
+                //turn left to face beacon
+                moveWithEncoders(-1, -1, 1000);
                 //move forward a little
                 moveWithEncoder(1, -1, 550);
                 //follow line
                 runWithColor(1500, 1);
                 //hit the blue button
-                checkColor("blue");
+                checkColor("red");
                 //back up
                 runWithColor(1500, -1)
-                //turn right
-                moveWithEncoder(1, 1, 500);
+                //turn left
+                moveWithEncoder(-1, -1, 500);
                 //drive to knock the ball off the center and park on center
                 moveWithEncoder(1, -1, 3000);
 
@@ -188,7 +180,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
     }
 
 
- public void checkColor(String colour) throws InterruptedException
+    public void checkColor(String colour) throws InterruptedException
     {
         if (sensorRGB3.red() > sensorRGB3.blue())
         {
@@ -279,7 +271,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
             if (Math.abs(leftBackMotor.getCurrentPosition()) > encoderCount) {
 
                 reached = true;
-             } else {
+            } else {
                 telemetry.addData("curPos", Math.abs(leftBackMotor.getCurrentPosition()));
                 telemetry.update();
             }
@@ -287,18 +279,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         }
     }
 
-    public void runWithEncoders() throws InterruptedException {
+    public void runWithEncoders() {
         if (leftBackMotor != null) {
             leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            sleep(250);
-            idle();
         }
     }
 
-    public void resetEncoders() throws InterruptedException {
-        leftBackMotor.setMode(DcMotor.RunMode.RESET_ENCODERS);
-        sleep(250);
-        idle();
+    public void resetEncoders() {
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void waitForEncodersReduxVersionTwoPointZero(int encoderAmount) throws InterruptedException{
@@ -315,12 +303,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         reached = false;
     }
 
-    public void moveWithEncoder(double left, double right, int targetEncoder) throws InterruptedException {
-        resetEncoders();
+    public void moveWithEncoder(double left, double right, int targetEncooder) throws InterruptedException {
         runWithEncoders();
         setLeftMotors(left);
         setRightMotors(right);
-        waitForEncodersReduxVersionTwoPointZero(targetEncoder);
+        waitForEncodersReduxVersionTwoPointZero(targetEncooder);
         stopLeftMotors();
         stopRightMotors();
         resetEncoders();
@@ -329,8 +316,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
     public void setRightMotors(double power){
-        rightFrontMotor.setPower(power);
-        rightBackMotor.setPower(-power);
+        rightFrontMotor.setPower(power*.8);
+        rightBackMotor.setPower(-power*.8);
     }
 
 
@@ -342,8 +329,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(power);
-        leftBackMotor.setPower(-power);
+        leftFrontMotor.setPower(power*.8);
+        leftBackMotor.setPower(-power*.8);
     }
 
     //stop left motors

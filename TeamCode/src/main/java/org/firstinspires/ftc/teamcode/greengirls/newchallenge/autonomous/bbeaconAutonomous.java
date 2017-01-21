@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  * Created by User on 10/9/2016.
  */
 @Autonomous (name="bbeaconAutonomous", group="bbeaconAutonomous")
-@Disabled
+//@Disabled
 public class bbeaconAutonomous extends GGLibrary {
 
     //set state to zero
@@ -32,7 +32,7 @@ public class bbeaconAutonomous extends GGLibrary {
 
                 //looop
 
-                waitForEncodersReduxVersionTwoPointZero(1500);
+                waitForEncodersReduxVersionTwoPointZero(2000);
 
 
                 stopLeftMotors();
@@ -60,8 +60,8 @@ public class bbeaconAutonomous extends GGLibrary {
                 runWithEncoders();
                 //turn to face beacon
                 // //turnToHeading(90);
-                setLeftMotors(-1);
-                setRightMotors(-1);
+                setLeftMotors(1);
+                setRightMotors(1);
                 waitForEncodersReduxVersionTwoPointZero(1150);
                 setRightMotors(0);
                 setLeftMotors(0);
@@ -69,7 +69,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 state++;
                 telemetry.addData("State", String.valueOf(state));
                 telemetry.update();
-                Log.w("State 2 ", String.valueOf(state));
+                //Log.w("State 2 ", String.valueOf(state));
                 break;
 
             case 3:
@@ -89,7 +89,7 @@ public class bbeaconAutonomous extends GGLibrary {
                 setLeftMotors(1);
                 setRightMotors(-1);
 
-                waitForEncodersReduxVersionTwoPointZero(1500);
+                waitForEncodersReduxVersionTwoPointZero(8500);
 
 
                 stopRightMotors();

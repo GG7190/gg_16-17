@@ -1,15 +1,17 @@
 package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import android.util.Log;
-import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 
 /**
  * Created by User on 12/3/2016.
  */
 
-@Autonomous(name="ballKnock", group="ballKnock")
-public class ballknock extends GGLibrary {
+@Autonomous(name="ballKnockred", group="ballKnock")
+public class ballknockred extends GGLibrary {
     //set state to zero
     int state = 0;
 //    int count = 0;
@@ -38,13 +40,14 @@ public class ballknock extends GGLibrary {
                 setLeftMotors(0);
                 setRightMotors(0);
                 resetEncoders();
-                setLeftMotors(.75);
-                setRightMotors(.75);
+                setLeftMotors(-.75);
+                setRightMotors(-.75);
 
                 waitForEncodersReduxVersionTwoPointZero(1750);
 
                 setLeftMotors(0);
                 setRightMotors(0);
+
                 resetEncoders();
 
 
@@ -63,8 +66,8 @@ public class ballknock extends GGLibrary {
             /*case 2:
                 runWithEncoders();
                 //turn to face beacon
-                // //turnToHeading(90);
-                setLeftMotors(-1);
+                // //turnToHeading(;\ 90);
+                setLeftMotors(-1);jh
                 setRightMotors(-1);
                 waitForEncodersReduxVersionTwoPointZero(450);
                 resetEncoders();
