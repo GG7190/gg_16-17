@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
+
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
@@ -121,6 +123,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         servo2 = hardwareMap.servo.get("servo2");
         hardwareMap.logDevices();
 
+        sensorRGB1.setI2cAddress(I2cAddr.create8bit(0x12));
+        sensorRGB2.setI2cAddress(I2cAddr.create8bit(0x10));
+        sensorRGB3.setI2cAddress(I2cAddr.create8bit(0x3c));
+
+        sensorRGB1.enableLed(true);
+        sensorRGB2.enableLed(true);
+        sensorRGB3.enableLed(true);
+
         waitForStart();
 
         boolean finished = false;
@@ -130,30 +140,30 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
             while (!finished) {
 
                 //drive forward
-                moveWithEncoder(1, -1, 1500);
+                moveWithEncoder(1, -1, 4000);
 
                 //turn right
                 moveWithEncoder(1, 1, 1150);
 
                 //get to line
-                moveWithEncoder(1, -1, 8350);
+                moveWithEncoder(1, -1, 6100);
 
                 //turn right a little
-               moveWithEncoder(1, 1, 1000);
+               moveWithEncoder(1, 1, 1575);
 
                 //move forward a little
-                moveWithEncoder(1, -1, 550);
+                moveWithEncoder(1, -1, 1850);
 
-                sleep(4000);
+                sleep(2000);
                 //drive back to start
-                moveWithEncoder(-1, 1, 1500);
+               /* moveWithEncoder(-1, 1, 1500);
                 moveWithEncoder(-1, -1, 1150);
-                moveWithEncoder(-1, 1, 8350);
-                moveWithEncoder(-1, -1, 1000);
-                moveWithEncoder(-1, 1, 550);
-
+                moveWithEncoder(-1, 1, 5500);
+                moveWithEncoder(-1, -1, 1400);
+                moveWithEncoder(-1, 1, 3500);
+                */
                 finished = true;
-                /*break;
+
                 //follow line
                 runWithColor(1500, 1);
                 //hit the blue button
@@ -163,23 +173,23 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 //turn left
                 moveWithEncoder(-1, -1, 1000);
                 //drive forward to beacon 2
-                moveWithEncoder(1, -1, 1000);
+                //moveWithEncoder(1, -1, 1000);
                 //turn right to face beacon
-                moveWithEncoders(1, 1, 1000);
+                //moveWithEncoders(1, 1, 1000);
                 //move forward a little
-                moveWithEncoder(1, -1, 550);
+                //moveWithEncoder(1, -1, 550);
                 //follow line
-                runWithColor(1500, 1);
+                //runWithColor(1500, 1);
                 //hit the blue button
-                checkColor("blue");
+                //checkColor("blue");
                 //back up
-                runWithColor(1500, -1)
+                //runWithColor(1500, -1)
                 //turn right
-                moveWithEncoder(1, 1, 500);
+                //moveWithEncoder(1, 1, 500);
                 //drive to knock the ball off the center and park on center
-                moveWithEncoder(1, -1, 3000);
+                //moveWithEncoder(1, -1, 3000);
 
-                */
+
             }
         }
 
