@@ -170,9 +170,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 }
 
                 reached = false;
-                setRightMotors(.45);
-                setLeftMotors(.45);
                 while (!reached) {
+                    double error = 20 - gyro.getHeading() * .055;
+                    setRightMotors(error);
+                    setLeftMotors(error);
                         if (gyro.getHeading() >= 20 && gyro.getHeading() < 300) {
                             reached = true;
                             finished = true;
@@ -181,7 +182,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                         }
                     telemetry.addData("heading", gyro.getHeading());
                     telemetry.update();
-
                 }
 
                 finished = true;
@@ -367,6 +367,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     idle();
                 }
 
+                /*
+
                 reached = false;
                 setRightMotors(-.35);
                 setLeftMotors(-.35);
@@ -520,9 +522,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     }
                     idle();
                 }
-
-
-
+                */
             }
         }
 

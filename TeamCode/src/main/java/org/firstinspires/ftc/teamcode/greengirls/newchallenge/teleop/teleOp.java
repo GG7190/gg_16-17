@@ -20,7 +20,7 @@ public class teleOp extends GGLibrary {
 
     double rSpeed = 0;
     double lSpeed = 0;
-
+    int reverse = 1;
     @Override public void loop()
     {
         //JOYSTICK ONE
@@ -29,11 +29,17 @@ public class teleOp extends GGLibrary {
 
 
 
+
+
         //RIGHT 1 = 1
         //LEFT -1 = 1
+        if (gamepad1.a) {
+            reverse = reverse * -1;
 
-        rSpeed = (( gamepad1.right_stick_y + gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * 1;
-        lSpeed = (( gamepad1.right_stick_y - gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * -1;
+        }
+
+        rSpeed = reverse*(( gamepad1.right_stick_y + gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * 1;
+        lSpeed = reverse*(( gamepad1.right_stick_y - gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * -1;
 
         //rSpeed = -gamepad1.right_stick_y;
         //lSpeed = gamepad1.left_stick_y;

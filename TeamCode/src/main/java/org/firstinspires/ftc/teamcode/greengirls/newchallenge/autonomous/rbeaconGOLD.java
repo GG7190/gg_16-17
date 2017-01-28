@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.I2cAddr;
+
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
@@ -56,19 +58,15 @@ public class rbeaconGOLD extends LinearOpMode {
     public ServoController servoController;
     public Servo servo1;
     public Servo servo2;
-    public Servo servo3;
-    public Servo servo4;
-    public Servo servo5;
-    public Servo servo6;
     public DeviceInterfaceModule cdim;
-    public TouchSensor touchSensor;
-    public GyroSensor gyroSensor;
+    public GyroSensor gyro;
     //this sensor must be on the left side
     public ColorSensor sensorRGB1;
     //this sensor must be on the right side
     public ColorSensor sensorRGB2;
     //this sensor detects the red v.s. blue of the light we press
     public ColorSensor sensorRGB3;
+    public ColorSensor sensorRGB4;
     public BNO055IMU imu;
     BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -105,6 +103,8 @@ public class rbeaconGOLD extends LinearOpMode {
         sensorRGB1 = hardwareMap.colorSensor.get("sensorColour1");
         sensorRGB2 = hardwareMap.colorSensor.get("sensorColour2");
         sensorRGB3 = hardwareMap.colorSensor.get("sensorColour3");
+        sensorRGB4 = hardwareMap.colorSensor.get("sensorColour4");
+
         rightWheelController = hardwareMap.dcMotorController.get("rightdrive");
         rightFrontMotor = hardwareMap.dcMotor.get("rfront");
         rightBackMotor = hardwareMap.dcMotor.get("rback");
@@ -119,58 +119,406 @@ public class rbeaconGOLD extends LinearOpMode {
         servoController = hardwareMap.servoController.get("servo");
         servo1 = hardwareMap.servo.get("servo1");
         servo2 = hardwareMap.servo.get("servo2");
+        gyro = hardwareMap.gyroSensor.get("gyro");
         hardwareMap.logDevices();
+
+        sensorRGB1.setI2cAddress(I2cAddr.create8bit(0x12));
+        sensorRGB2.setI2cAddress(I2cAddr.create8bit(0x10));
+        sensorRGB3.setI2cAddress(I2cAddr.create8bit(0x3c));
+        sensorRGB3.setI2cAddress(I2cAddr.create8bit(0x14));
+
+        sensorRGB1.enableLed(true);
+        sensorRGB2.enableLed(true);
+        sensorRGB3.enableLed(false);
+        sensorRGB4.enableLed(true);
+
+
 
         waitForStart();
 
         boolean finished = false;
 
+
         while (opModeIsActive()) {
+
+
 
             while (!finished) {
 
-                //drive forward
-                moveWithEncoder(1, -1, 1500);
+                gyro.calibrate();
+                sleep(100);
+                while (gyro.getHeading() != 0) {
+                    sleep(100);
+                    idle();
+                }
 
-                //turn left
-                moveWithEncoder(-1, -1, 1150);
 
-                //get to line
-                moveWithEncoder(1, -1, 8350);
+                resetEncoders();
+                sleep(100);
+                runWithEncoders();
+                sleep(100);
+                setRightMotors(-.35);
+                setLeftMotors(.37);
+                reached = false;
+                while (!reached) {
+                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 1500) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    idle();
+                }
 
-                //turn left a little
-                moveWithEncoder(-1, -1, 1000);
-
-                //move forward a little
-                moveWithEncoder(1, -1, 550);
+                reached = false;
+                while (!reached) {
+                    double error = 340 - gyro.getHeading() * .055;
+                    setRightMotors(-error);
+                    setLeftMotors(-error);
+                    if (gyro.getHeading() <= 340 && gyro.getHeading() > 300) {
+                        reached = true;
+                        finished = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    telemetry.addData("heading", gyro.getHeading());
+                    telemetry.update();
+                }
 
                 finished = true;
-                /*break;
-                //follow line
-                runWithColor(1500, 1);
-                //hit the blue button
-                checkColor("red");
-                //back up
-                runWithColor(1500, -1);
-                //turn right
-                moveWithEncoder(1, 1, 1000);
-                //drive forward to beacon 2
-                moveWithEncoder(1, -1, 1000);
-                //turn left to face beacon
-                moveWithEncoders(-1, -1, 1000);
-                //move forward a little
-                moveWithEncoder(1, -1, 550);
-                //follow line
-                runWithColor(1500, 1);
-                //hit the blue button
-                checkColor("red");
-                //back up
-                runWithColor(1500, -1)
-                //turn left
-                moveWithEncoder(-1, -1, 500);
-                //drive to knock the ball off the center and park on center
-                moveWithEncoder(1, -1, 3000);
+                //drive forward
+                reached = false;
+                setRightMotors(-.45);
+                setLeftMotors(.45);
+                while (!reached) {
+                    if (sensorRGB2.alpha() > 0) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                        telemetry.addData("alpha", sensorRGB2.alpha());
+                        telemetry.update();
+                    } else {
+                        telemetry.addData("alpha", sensorRGB2.alpha());
+                        telemetry.update();
+                    }
+                    idle();
+                }
 
+                /*
+                reached = false;
+                setRightMotors(.30);
+                setLeftMotors(.30);
+                while (!reached) {
+                    if (sensorRGB1.alpha() > 2) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                        telemetry.addData("alpha", sensorRGB2.alpha());
+                        telemetry.update();
+                    } else {
+                        telemetry.addData("alpha", sensorRGB2.alpha());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+                */
+
+                reached = false;
+                setRightMotors(-.20);
+                setLeftMotors(-.35);
+                while (!reached) {
+                    if (gyro.getHeading() <= 290) {
+                        reached = true;
+                        finished = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    telemetry.addData("heading", gyro.getHeading());
+                    telemetry.update();
+                    idle();
+                }
+
+                //follow line
+                double speed = .35;
+                reached = false;
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold)*.20;
+                    errorRight = (alpha2 - threshold)*.20;
+                    if (errorLeft<0) {errorLeft=0;}
+                    if (errorRight<0) {errorRight=0;}
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
+                    setRightMotors(-rightSpeed);
+                    setLeftMotors(leftSpeed);
+                    if (sensorRGB3.red() >= 2 || sensorRGB3.blue() >= 2 || sensorRGB4.red() >=2 || sensorRGB4.blue() >=2 ) {
+
+                        reached = true;
+                        finished = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+                String color;
+                if (sensorRGB3.blue() > sensorRGB4.blue()) {
+                    color = "blue";
+                } else {
+                    color = "red";
+                }
+                reached = false;
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold) * .20;
+                    errorRight = (alpha2 - threshold) * .20;
+                    if (errorLeft < 0) {
+                        errorLeft = 0;
+                    }
+                    if (errorRight < 0) {
+                        errorRight = 0;
+                    }
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
+                    setRightMotors(rightSpeed);
+                    setLeftMotors(-leftSpeed);
+                    if (sensorRGB3.red() < 2 && sensorRGB3.blue() < 1) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+                if (color == "red") {
+                    maxServo2();
+                    minServo1();
+                } else {
+                    maxServo1();
+                    minServo2();
+                }
+                reached = false;
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold) * .20;
+                    errorRight = (alpha2 - threshold) * .20;
+                    if (errorLeft < 0) {
+                        errorLeft = 0;
+                    }
+                    if (errorRight < 0) {
+                        errorRight = 0;
+                    }
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
+                    setRightMotors(-rightSpeed);
+                    setLeftMotors(leftSpeed);
+                    if (!(color == "red")) {
+                        if (sensorRGB4.red() >= 2) {
+                            reached = true;
+                            setRightMotors(0);
+                            setLeftMotors(0);
+                        } else {
+                            if (sensorRGB3.blue() >= 2) {
+                                reached = true;
+                                setRightMotors(0);
+                                setLeftMotors(0);
+                            }
+                        }
+                    } else {
+                        telemetry.addData("red3", sensorRGB3.red());
+                        telemetry.addData("blue3", sensorRGB3.blue());
+                        telemetry.addData("red4", sensorRGB4.red());
+                        telemetry.addData("blue4", sensorRGB4.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+
+                /*
+
+                reached = false;
+                setLeftMotors(-.25);
+                setRightMotors(.25);
+                while (!reached) {
+                    if (sensorRGB3.red() < 1 && sensorRGB1.blue() < 1) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+
+                reached = false;
+                setRightMotors(-.35);
+                setLeftMotors(-.35);
+                while (!reached) {
+                    if (gyro.getHeading() <= 30 ) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    telemetry.addData("heading", gyro.getHeading());
+                    telemetry.update();
+                    idle();
+                }
+
+                reached = false;
+                setRightMotors(-.35);
+                setLeftMotors(.35);
+                while (!reached) {
+                    if (sensorRGB2.alpha() > 0) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    telemetry.addData("alpha", sensorRGB2.alpha());
+                    telemetry.update();
+                    idle();
+                }
+
+                reached = false;
+                setRightMotors(.20);
+                setLeftMotors(.35);
+                while (!reached) {
+                    if (gyro.getHeading() >= 76) {
+                        reached = true;
+                        finished = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    telemetry.addData("heading", gyro.getHeading());
+                    telemetry.update();
+                    idle();
+                }
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold)*.20;
+                    errorRight = (alpha2 - threshold)*.20;
+                    if (errorLeft<0) {errorLeft=0;}
+                    if (errorRight<0) {errorRight=0;}
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
+                    setRightMotors(-rightSpeed);
+                    setLeftMotors(leftSpeed);
+                    if (sensorRGB3.red() >= 2 || sensorRGB3.blue() >= 2 ) {
+                        reached = true;
+                        finished = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+                if (sensorRGB3.blue() > 1) {
+                    color = "blue";
+                } else {
+                    color = "red";
+                }
+                reached = false;
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold) * .20;
+                    errorRight = (alpha2 - threshold) * .20;
+                    if (errorLeft < 0) {
+                        errorLeft = 0;
+                    }
+                    if (errorRight < 0) {
+                        errorRight = 0;
+                    }
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
+                    setRightMotors(rightSpeed);
+                    setLeftMotors(-leftSpeed);
+                    if (sensorRGB3.red() == 0 && sensorRGB3.blue() == 0) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+                if (color == "blue") {
+                    maxServo2();
+                    minServo1();
+                } else {
+                    maxServo1();
+                    minServo2();
+                }
+                reached = false;
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold) * .20;
+                    errorRight = (alpha2 - threshold) * .20;
+                    if (errorLeft < 0) {
+                        errorLeft = 0;
+                    }
+                    if (errorRight < 0) {
+                        errorRight = 0;
+                    }
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
+                    setRightMotors(-rightSpeed);
+                    setLeftMotors(leftSpeed);
+                    if ((sensorRGB3.red() + sensorRGB3.blue()) >= 2) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+
+                reached = false;
+                setLeftMotors(-.25);
+                setRightMotors(.25);
+                while (!reached) {
+                    if (sensorRGB3.red() < 1 && sensorRGB1.blue() < 1) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    } else {
+                        telemetry.addData("red", sensorRGB3.red());
+                        telemetry.addData("blue", sensorRGB3.blue());
+                        telemetry.update();
+                    }
+                    idle();
+                }
                 */
             }
         }
@@ -277,16 +625,21 @@ public class rbeaconGOLD extends LinearOpMode {
             }
             idle();
         }
+
     }
 
-    public void runWithEncoders() {
+    public void runWithEncoders() throws InterruptedException {
         if (leftBackMotor != null) {
             leftBackMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sleep(250);
+            idle();
         }
     }
 
-    public void resetEncoders() {
-        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public void resetEncoders() throws InterruptedException {
+        leftBackMotor.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        sleep(250);
+        idle();
     }
 
     public void waitForEncodersReduxVersionTwoPointZero(int encoderAmount) throws InterruptedException{
@@ -303,11 +656,12 @@ public class rbeaconGOLD extends LinearOpMode {
         reached = false;
     }
 
-    public void moveWithEncoder(double left, double right, int targetEncooder) throws InterruptedException {
+    public void moveWithEncoder(double left, double right, int targetEncoder) throws InterruptedException {
+        resetEncoders();
         runWithEncoders();
         setLeftMotors(left);
         setRightMotors(right);
-        waitForEncodersReduxVersionTwoPointZero(targetEncooder);
+        waitForEncodersReduxVersionTwoPointZero(targetEncoder);
         stopLeftMotors();
         stopRightMotors();
         resetEncoders();
@@ -316,8 +670,8 @@ public class rbeaconGOLD extends LinearOpMode {
 
 
     public void setRightMotors(double power){
-        rightFrontMotor.setPower(power*.8);
-        rightBackMotor.setPower(-power*.8);
+        rightFrontMotor.setPower(power);
+        rightBackMotor.setPower(-power);
     }
 
 
@@ -329,8 +683,8 @@ public class rbeaconGOLD extends LinearOpMode {
 
     //set power to left motors
     public void setLeftMotors(double power){
-        leftFrontMotor.setPower(power*.8);
-        leftBackMotor.setPower(-power*.8);
+        leftFrontMotor.setPower(power);
+        leftBackMotor.setPower(-power);
     }
 
     //stop left motors
