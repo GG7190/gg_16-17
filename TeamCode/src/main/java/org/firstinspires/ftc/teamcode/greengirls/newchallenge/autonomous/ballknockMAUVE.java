@@ -71,7 +71,7 @@ public class ballknockMAUVE extends LinearOpMode{
                 runWithEncoders();
                 setRightMotors(1);
                 setLeftMotors(-1);
-                waitForEncodersReduxVersionTwoPointZero(6700);
+                waitForEncodersReduxVersionTwoPointZero(10000);
                 setLeftMotors(0);
                 setRightMotors(0);
                 resetEncoders();
@@ -79,24 +79,9 @@ public class ballknockMAUVE extends LinearOpMode{
                 runWithEncoders();
                 setRightMotors(.75);
                 setLeftMotors(.75);
-                waitForEncodersReduxVersionTwoPointZero(750);
+                waitForEncodersReduxVersionTwoPointZero(950);
                 setLeftMotors(0);
                 setRightMotors(0);
-                resetEncoders();
-                sleep(200);
-                runWithEncoders();
-                setRightMotors(-.75);
-                setLeftMotors(-.75);
-                waitForEncodersReduxVersionTwoPointZero(815);
-                resetEncoders();
-                sleep(200);
-                runWithEncoders();
-                setLeftMotors(1);
-                setRightMotors(-1);
-                waitForEncodersReduxVersionTwoPointZero(1000);
-                setLeftMotors(0);
-                setRightMotors(0);
-                resetEncoders();
                 finished = true;
             }
             idle();

@@ -38,9 +38,8 @@ public class teleOp extends GGLibrary {
 
         }
 
-        rSpeed = reverse*(( gamepad1.right_stick_y + gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * 1;
-        lSpeed = reverse*(( gamepad1.right_stick_y - gamepad1.right_stick_x) * ((-gamepad1.left_stick_y+1)/2)) * -1;
-
+        rSpeed = reverse*(( gamepad1.right_stick_y + gamepad1.right_stick_x)) * 1;
+        lSpeed = reverse*(( gamepad1.right_stick_y - gamepad1.right_stick_x)) * -1;
         //rSpeed = -gamepad1.right_stick_y;
         //lSpeed = gamepad1.left_stick_y;
 
@@ -79,6 +78,5 @@ public class teleOp extends GGLibrary {
       } else {
           stopFunnel();
       }
-
     }
 }

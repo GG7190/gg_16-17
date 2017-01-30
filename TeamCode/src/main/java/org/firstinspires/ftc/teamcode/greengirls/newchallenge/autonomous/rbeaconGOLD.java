@@ -190,7 +190,7 @@ public class rbeaconGOLD extends LinearOpMode {
                 setRightMotors(-.45);
                 setLeftMotors(.45);
                 while (!reached) {
-                    if (sensorRGB2.alpha() > 0) {
+                    if (sensorRGB2.alpha() > 2) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
@@ -198,6 +198,33 @@ public class rbeaconGOLD extends LinearOpMode {
                         telemetry.update();
                     } else {
                         telemetry.addData("alpha", sensorRGB2.alpha());
+                        telemetry.update();
+                    }
+                    idle();
+                }
+
+                resetEncoders();
+                idle();
+                reached = false;
+                double speed = .35;
+                runWithEncoders();
+                while (!reached) {
+                    alpha1 = sensorRGB1.alpha();
+                    alpha2 = sensorRGB2.alpha();
+                    telemetry.addData("alpha1", alpha1);
+                    telemetry.addData("alpha2", alpha2);
+                    errorLeft = (alpha1 - threshold)*.20;
+                    errorRight = (alpha2 - threshold)*.20;
+                    if (errorLeft<0) {errorLeft=0;}
+                    if (errorRight<0) {errorRight=0;}
+                    leftSpeed = speed - errorLeft + errorRight;
+                    rightSpeed = speed - errorRight + errorLeft;
+                    setRightMotors(-leftSpeed);
+                    setLeftMotors(rightSpeed);
+                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 18) {
+                        reached = true;
+                    } else {
+                        telemetry.addData("curPos", Math.abs(leftBackMotor.getCurrentPosition()));
                         telemetry.update();
                     }
                     idle();
@@ -238,7 +265,6 @@ public class rbeaconGOLD extends LinearOpMode {
                 }
 
                 //follow line
-                double speed = .35;
                 reached = false;
                 while (!reached) {
                     alpha1 = sensorRGB1.alpha();
