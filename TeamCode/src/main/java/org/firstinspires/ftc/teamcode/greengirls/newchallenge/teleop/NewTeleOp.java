@@ -125,7 +125,6 @@ public class NewTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-
             double rSpeed = (gamepad1.right_stick_y + gamepad1.right_stick_x) * 1;
             double lSpeed = (gamepad1.right_stick_y - gamepad1.right_stick_x) * -1;
 
@@ -152,6 +151,11 @@ public class NewTeleOp extends LinearOpMode {
             if (gamepad2.left_bumper){
                 buttonPushIn();
             }
+
+            telemetry.addData("alpha1", sensorRGB1.alpha());
+            telemetry.addData("alpha2", sensorRGB2.alpha());
+            telemetry.update();
+
 
             // Funnel movement in teleop
             if (gamepad2.b) {

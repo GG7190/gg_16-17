@@ -29,20 +29,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
     protected final static double SERVO2_MIN_RANGE  = 0.10;
     protected final static double SERVO2_MID_RANGE  = 0.45;
     protected final static double SERVO2_MAX_RANGE  = 0.99;
-    boolean colourTrigger = false;
-    boolean colourReady = false;
-    final int threshold = 4;
+    final int threshold = 1;
     double rightSpeed = 0;
     double leftSpeed = 0;
     double errorLeft = 0;
     double errorRight = 0;
     int alpha1 = 0;
     int alpha2 = 0;
-    double turnSpeed;
-    double newHeading;
-    double currentHeading;
     boolean reached;
-    Orientation angles;
     public DcMotorController rightWheelController;
     public DcMotor rightFrontMotor;
     public DcMotor rightBackMotor;
@@ -54,7 +48,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
     public DcMotor motor2;
     public DcMotorController attachmentMotorController2;
     public DcMotor motor3;
-    public DcMotor motor4;
     public ServoController servoController;
     public Servo servo1;
     public Servo servo2;
@@ -64,11 +57,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
     public ColorSensor sensorRGB1;
     //this sensor must be on the right side
     public ColorSensor sensorRGB2;
-    //this sensor detects the red v.s. blue of the light we press
+    //this sensor detects the red v.s. blue of the light we press on the left side
     public ColorSensor sensorRGB3;
+    //right side beacon sensor
     public ColorSensor sensorRGB4;
-    public BNO055IMU imu;
-    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
 
 
@@ -203,14 +195,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
                 reached = false;
                 while (!reached) {
-                    if (gyro.getHeading() >= 28 && gyro.getHeading() <= 300) {
+                    if (gyro.getHeading() >= 30 && gyro.getHeading() <= 300) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
                     }
                     double error;
                     if (gyro.getHeading() < 300) {
-                        error = (28 - gyro.getHeading()) * .02;
+                        error = (30 - gyro.getHeading()) * .02;
                     } else {
                         error = .45;
                     }
@@ -260,12 +252,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 reached = false;
 
                 while (!reached) {
-                    if (gyro.getHeading() >= 66) {
+                    if (gyro.getHeading() >= 72) {
                         reached = true;
                     } else {
                         double error;
                         if (gyro.getHeading() < 350) {
-                            error = (66 - gyro.getHeading()) * .02;
+                            error = (72 - gyro.getHeading()) * .02;
                         } else {
                             error = .45;
                         }
@@ -285,21 +277,21 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 resetEncoders();
                 idle();
                 reached = false;
-                double speed = .35;
+                double speed = .25;
                 runWithEncoders();
                 while (!reached) {
                     alpha1 = sensorRGB1.alpha();
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold)*.20;
-                    errorRight = (alpha2 - threshold)*.20;
+                    errorLeft = (alpha1 - threshold)*.1;
+                    errorRight = (alpha2 - threshold)*.1;
                     if (errorLeft<0) {errorLeft=0;}
                     if (errorRight<0) {errorRight=0;}
                     leftSpeed = speed - errorLeft;
                     rightSpeed = speed - errorRight;
-                    setRightMotors(-rightSpeed);
-                    setLeftMotors(leftSpeed);
+                    setRightMotors(rightSpeed);
+                    setLeftMotors(-leftSpeed);
                     if (Math.abs(leftBackMotor.getCurrentPosition()) > 1800) {
                         reached = true;
                     } else {
@@ -318,12 +310,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold)*.20;
-                    errorRight = (alpha2 - threshold)*.20;
+                    errorLeft = (alpha1 - threshold)*.1;
+                    errorRight = (alpha2 - threshold)*.1;
                     if (errorLeft<0) {errorLeft=0;}
                     if (errorRight<0) {errorRight=0;}
-                    leftSpeed = speed - errorLeft + errorRight;
-                    rightSpeed = speed - errorRight + errorLeft;
+                    leftSpeed = speed - errorLeft;
+                    rightSpeed = speed - errorRight;
                     setRightMotors(-rightSpeed);
                     setLeftMotors(leftSpeed);
                     if (sensorRGB3.red() >= 2 || sensorRGB3.blue() >= 2 || sensorRGB4.red() >=2 || sensorRGB4.blue() >=2 ) {
@@ -350,8 +342,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .20;
-                    errorRight = (alpha2 - threshold) * .20;
+                    errorLeft = (alpha1 - threshold) * .1;
+                    errorRight = (alpha2 - threshold) * .1;
                     if (errorLeft < 0) {
                         errorLeft = 0;
                     }
@@ -386,8 +378,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .20;
-                    errorRight = (alpha2 - threshold) * .20;
+                    errorLeft = (alpha1 - threshold) * .1;
+                    errorRight = (alpha2 - threshold) * .1;
                     if (errorLeft < 0) {
                         errorLeft = 0;
                     }
@@ -435,18 +427,25 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     idle();
                 }
 
-                /*
+
 
                 reached = false;
-                setRightMotors(-.35);
-                setLeftMotors(-.35);
                 while (!reached) {
-                    if (gyro.getHeading() <= 30 ) {
+                    if (gyro.getHeading() <= 10 ) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
                     }
+                    double error;
+                    if (gyro.getHeading() < 300) {
+                        error = (gyro.getHeading()) * .02;
+                    } else {
+                        error = .45;
+                    }
+                    setRightMotors(-error);
+                    setLeftMotors(-error);
                     telemetry.addData("heading", gyro.getHeading());
+                    telemetry.addData("error", error);
                     telemetry.update();
                     idle();
                 }
@@ -455,7 +454,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 setRightMotors(-.35);
                 setLeftMotors(.35);
                 while (!reached) {
-                    if (sensorRGB2.alpha() > 0) {
+                    if (sensorRGB2.alpha() > 0 || sensorRGB1.alpha() > 0) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
@@ -466,26 +465,35 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 }
 
                 reached = false;
-                setRightMotors(.20);
-                setLeftMotors(.35);
                 while (!reached) {
-                    if (gyro.getHeading() >= 76) {
+                    if (gyro.getHeading() >= 70) {
                         reached = true;
                         finished = true;
                         setRightMotors(0);
                         setLeftMotors(0);
+                    }double error;
+                    if (gyro.getHeading() < 300) {
+                        error = (70 - gyro.getHeading()) * .02;
+                    } else {
+                        error = .45;
                     }
+                    setRightMotors(error);
+                    setLeftMotors(error);
                     telemetry.addData("heading", gyro.getHeading());
+                    telemetry.addData("error", error);
                     telemetry.update();
                     idle();
                 }
+
+                reached = false;
+
                 while (!reached) {
                     alpha1 = sensorRGB1.alpha();
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold)*.20;
-                    errorRight = (alpha2 - threshold)*.20;
+                    errorLeft = (alpha1 - threshold)*.1;
+                    errorRight = (alpha2 - threshold)*.1;
                     if (errorLeft<0) {errorLeft=0;}
                     if (errorRight<0) {errorRight=0;}
                     leftSpeed = speed - errorLeft;
@@ -515,8 +523,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .20;
-                    errorRight = (alpha2 - threshold) * .20;
+                    errorLeft = (alpha1 - threshold) * .1;
+                    errorRight = (alpha2 - threshold) * .1;
                     if (errorLeft < 0) {
                         errorLeft = 0;
                     }
@@ -545,6 +553,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     maxServo1();
                     minServo2();
                 }
+                /*
                 reached = false;
                 while (!reached) {
                     alpha1 = sensorRGB1.alpha();
