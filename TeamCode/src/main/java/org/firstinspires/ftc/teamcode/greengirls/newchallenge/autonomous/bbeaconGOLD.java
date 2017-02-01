@@ -249,6 +249,24 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 }
                 */
 
+                resetEncoders();
+                sleep(100);
+                runWithEncoders();
+                sleep(100);
+                setRightMotors(-.30);
+                setLeftMotors(.30);
+                reached = false;
+                while (!reached) {
+                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 300) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    idle();
+                }
+                setLeftMotors(0);
+                setRightMotors(0);
+
                 reached = false;
 
                 while (!reached) {
@@ -277,7 +295,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 resetEncoders();
                 idle();
                 reached = false;
-                double speed = .25;
+                double speed = .30;
                 runWithEncoders();
                 while (!reached) {
                     alpha1 = sensorRGB1.alpha();
@@ -292,7 +310,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     rightSpeed = speed - errorRight;
                     setRightMotors(rightSpeed);
                     setLeftMotors(-leftSpeed);
-                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 1800) {
+                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 900) {
                         reached = true;
                     } else {
                         telemetry.addData("curPos", Math.abs(leftBackMotor.getCurrentPosition()));
