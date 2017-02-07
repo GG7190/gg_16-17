@@ -25,10 +25,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
     protected final static double SERVO1_MIN_RANGE  = 0.10;
     protected final static double SERVO1_MID_RANGE  = 0.45;
-    protected final static double SERVO1_MAX_RANGE  = 0.99;
+    protected final static double SERVO1_MAX_RANGE  = 0.90;
     protected final static double SERVO2_MIN_RANGE  = 0.10;
     protected final static double SERVO2_MID_RANGE  = 0.45;
-    protected final static double SERVO2_MAX_RANGE  = 0.99;
+    protected final static double SERVO2_MAX_RANGE  = 0.90;
     final int threshold = 1;
     double rightSpeed = 0;
     double leftSpeed = 0;
@@ -84,9 +84,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         servo2.setPosition(SERVO2_MID_RANGE);
     }
 
-    public void maxServo2() {
-        servo2.setPosition(SERVO2_MAX_RANGE);
-    }
+    public void maxServo2() { servo2.setPosition(SERVO2_MAX_RANGE); }
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -125,21 +123,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         sensorRGB4.enableLed(false);
 
 
-        gyro.calibrate();
-        sleep(100);
-        while (gyro.isCalibrating()) {
-            telemetry.addData("Gyro", "Gyro is calibrating... wait...");
-            telemetry.update();
-            idle();
+        gyro.calibrate(); //calibrate the gyro.
+        while (gyro.isCalibrating()) { // waits until gyro is calibrated
+            telemetry.addData("Gyro", "Gyro is calibrating... wait..."); // tell the user that the gyro is calibrating, and that they should (((WAIT)))
+            telemetry.update(); // push the message
+            idle(); // update hardware -- formerly waitOneFullHardwareCycle();
         }
-        telemetry.addData("Gyro", "Done calibrating");
-        telemetry.addData("Colour Sensors", "Checking...");
-        telemetry.update();
+        telemetry.addData("Gyro", "Done calibrating"); // tell the user that the gyro is done calibrating :)
+        telemetry.addData("Colour Sensors", "Checking..."); //tell the user we are checking the colour sensors
+        telemetry.update(); // push message
 
 
-        telemetry.addData("Gyro", "Done calibrating");
+        telemetry.addData("Gyro", "Done calibrating"); //we need to add this message again because if we update telemetry without it added twice it gets removed
 
-        if (sensorRGB1.alpha() == 255) {
+        if (sensorRGB1.alpha() == 255) { // check if the first sensor is reading 255 -- they tend to read 255 on all channels for an unknown reason.
             telemetry.addData("Colour Sensor 1", "FAIL! Reading 255, check sensor!");
         } else {
             telemetry.addData("Color Sensor 1", "Reading OK");
@@ -176,7 +173,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
             while (!finished) {
 
-
+                //drives forward halfway to the  beacon
                 resetEncoders();
                 sleep(100);
                 runWithEncoders();
@@ -193,16 +190,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     idle();
                 }
 
+                //turn to face the beacon / white line
                 reached = false;
                 while (!reached) {
-                    if (gyro.getHeading() >= 30 && gyro.getHeading() <= 300) {
+                    if (gyro.getHeading() >= 32 && gyro.getHeading() <= 300) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
                     }
                     double error;
                     if (gyro.getHeading() < 300) {
-                        error = (30 - gyro.getHeading()) * .02;
+                        error = (32 - gyro.getHeading()) * .03;
                     } else {
                         error = .45;
                     }
@@ -215,7 +213,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 }
 
 
-
+                //check the color and push the button
                 finished = true;
                 //drive forward
                 reached = false;
@@ -310,7 +308,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     rightSpeed = speed - errorRight;
                     setRightMotors(rightSpeed);
                     setLeftMotors(-leftSpeed);
-                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 900) {
+                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 800) {
                         reached = true;
                     } else {
                         telemetry.addData("curPos", Math.abs(leftBackMotor.getCurrentPosition()));
@@ -328,8 +326,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold)*.1;
-                    errorRight = (alpha2 - threshold)*.1;
+                    errorLeft = (alpha1 - threshold)*0.05;
+                    errorRight = (alpha2 - threshold)*0.05;
                     if (errorLeft<0) {errorLeft=0;}
                     if (errorRight<0) {errorRight=0;}
                     leftSpeed = speed - errorLeft;
@@ -360,8 +358,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .1;
-                    errorRight = (alpha2 - threshold) * .1;
+                    errorLeft = (alpha1 - threshold) * .05;
+                    errorRight = (alpha2 - threshold) * .05;
                     if (errorLeft < 0) {
                         errorLeft = 0;
                     }
@@ -396,8 +394,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .1;
-                    errorRight = (alpha2 - threshold) * .1;
+                    errorLeft = (alpha1 - threshold) * .05;
+                    errorRight = (alpha2 - threshold) * .05;
                     if (errorLeft < 0) {
                         errorLeft = 0;
                     }
@@ -510,8 +508,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold)*.1;
-                    errorRight = (alpha2 - threshold)*.1;
+                    errorLeft = (alpha1 - threshold)*.05;
+                    errorRight = (alpha2 - threshold)*.05;
                     if (errorLeft<0) {errorLeft=0;}
                     if (errorRight<0) {errorRight=0;}
                     leftSpeed = speed - errorLeft;
@@ -541,8 +539,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     alpha2 = sensorRGB2.alpha();
                     telemetry.addData("alpha1", alpha1);
                     telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .1;
-                    errorRight = (alpha2 - threshold) * .1;
+                    errorLeft = (alpha1 - threshold) * .05;
+                    errorRight = (alpha2 - threshold) * .05;
                     if (errorLeft < 0) {
                         errorLeft = 0;
                     }
@@ -765,27 +763,39 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
         resetEncoders();
     }
 
-
-
+    /**
+     *  Turns on the right motors to the level of the input
+     *
+     * @param power
+     */
     public void setRightMotors(double power){
         rightFrontMotor.setPower(power);
         rightBackMotor.setPower(-power);
     }
 
-
+    /**
+     *  Sets right motor power to 0, thus stopping the robot and the motors
+     */
     //stop right motors
     public void stopRightMotors(){
         rightFrontMotor.setPower(0);
         rightBackMotor.setPower(0);
     }
 
+    /**
+     *  Turns the left  motors on to the level of input
+     *
+     * @param power
+     */
     //set power to left motors
     public void setLeftMotors(double power){
         leftFrontMotor.setPower(power);
         leftBackMotor.setPower(-power);
     }
 
-    //stop left motors
+    /**
+     *  Set left motors power to 0, thus stopping the robot and the motors
+     */
     public void stopLeftMotors(){
         leftFrontMotor.setPower(0);
         leftBackMotor.setPower(0);
