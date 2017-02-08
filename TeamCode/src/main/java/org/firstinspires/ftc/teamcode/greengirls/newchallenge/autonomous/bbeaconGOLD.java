@@ -25,10 +25,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
     protected final static double SERVO1_MIN_RANGE  = 0.10;
     protected final static double SERVO1_MID_RANGE  = 0.45;
-    protected final static double SERVO1_MAX_RANGE  = 0.90;
+    protected final static double SERVO1_MAX_RANGE  = 0.99;
     protected final static double SERVO2_MIN_RANGE  = 0.10;
     protected final static double SERVO2_MID_RANGE  = 0.45;
-    protected final static double SERVO2_MAX_RANGE  = 0.90;
+    protected final static double SERVO2_MAX_RANGE  = 0.99;
     final int threshold = 1;
     double rightSpeed = 0;
     double leftSpeed = 0;
@@ -190,17 +190,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                     idle();
                 }
 
+
+
                 //turn to face the beacon / white line
                 reached = false;
                 while (!reached) {
-                    if (gyro.getHeading() >= 32 && gyro.getHeading() <= 300) {
+                    if (gyro.getHeading() >= 25 && gyro.getHeading() <= 300) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
                     }
                     double error;
                     if (gyro.getHeading() < 300) {
-                        error = (32 - gyro.getHeading()) * .03;
+                        error = (25 -  gyro.getHeading()) * .03;
                     } else {
                         error = .45;
                     }
@@ -237,7 +239,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
-                        telemetry.addData("alpha", sensorRGB2.alpha());
+                        telemetry.addData("alph0a", sensorRGB2.alpha());
                         telemetry.update();
                     } else {
                         telemetry.addData("alpha", sensorRGB2.alpha());
@@ -268,12 +270,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
                 reached = false;
 
                 while (!reached) {
-                    if (gyro.getHeading() >= 72) {
+                    if (gyro.getHeading() >= 70) {
                         reached = true;
                     } else {
                         double error;
                         if (gyro.getHeading() < 350) {
-                            error = (72 - gyro.getHeading()) * .02;
+                            error = (70 - gyro.getHeading()) * .02;
                         } else {
                             error = .45;
                         }
