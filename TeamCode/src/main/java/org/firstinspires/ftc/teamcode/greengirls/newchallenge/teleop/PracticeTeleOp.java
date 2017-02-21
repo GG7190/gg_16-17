@@ -21,8 +21,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 /**
  * Created by Greatsword on 1/16/2017.
  */
-@TeleOp(name="NewTeleOp",group="TeleOp")
-public class NewTeleOp extends LinearOpMode {
+@TeleOp(name="PracticeTeleOp",group="TeleOp")
+public class PracticeTeleOp extends LinearOpMode {
 
 
     protected final static double SERVO1_MIN_RANGE = 0.10;
@@ -149,7 +149,7 @@ public class NewTeleOp extends LinearOpMode {
             setLeftMotors(lSpeed);
 
 
-            if (gamepad2.y && time.seconds() > 90){
+            if (gamepad2.y){
                 liftUp();
             }
             else if (gamepad2.a){

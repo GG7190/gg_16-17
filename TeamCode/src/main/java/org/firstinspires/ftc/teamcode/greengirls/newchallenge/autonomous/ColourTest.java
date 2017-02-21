@@ -21,17 +21,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 /**
  * Created by Greatsword on 1/16/2017.
  */
-@Autonomous(name="ColourCheckTest",group="TeleOp")
+@TeleOp(name="ColourTest",group="TeleOp")
 @Disabled
-public class CheckColourTest extends LinearOpMode {
+public class ColourTest extends LinearOpMode {
 
 
-    protected final static double SERVO1_MIN_RANGE = 0.20;
+    protected final static double SERVO1_MIN_RANGE = 0.10;
     protected final static double SERVO1_MID_RANGE = 0.45;
-    protected final static double SERVO1_MAX_RANGE = 0.85;
-    protected final static double SERVO2_MIN_RANGE = 0.20;
+    protected final static double SERVO1_MAX_RANGE = 0.99;
+    protected final static double SERVO2_MIN_RANGE = 0.10;
     protected final static double SERVO2_MID_RANGE = 0.45;
-    protected final static double SERVO2_MAX_RANGE = 0.85;
+    protected final static double SERVO2_MAX_RANGE = 0.99;
     boolean colourTrigger = false;
     boolean colourReady = false;
     final int threshold = 2;
@@ -140,107 +140,58 @@ public class CheckColourTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             while (!finished) {
-                double speed = .35;
+                double speed = .4;
                 resetEncoders();
-                reached = false;
-                runWithEncoders();
-                while (!reached) {
-                    alpha1 = sensorRGB1.alpha();
-                    alpha2 = sensorRGB2.alpha();
-                    telemetry.addData("alpha1", alpha1);
-                    telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold)*.20;
-                    errorRight = (alpha2 - threshold)*.20;
-                    if (errorLeft<0) {errorLeft=0;}
-                    if (errorRight<0) {errorRight=0;}
-                    leftSpeed = speed - errorLeft;
-                    rightSpeed = speed - errorRight;
-                    setRightMotors(-rightSpeed);
-                    setLeftMotors(leftSpeed);
-                    if (sensorRGB3.red() >= 2 || sensorRGB3.blue() >= 2 ) {
-                        reached = true;
-                        finished = true;
-                        setRightMotors(0);
-                        setLeftMotors(0);
-                    } else {
-                        telemetry.addData("red", sensorRGB3.red());
-                        telemetry.addData("blue", sensorRGB3.blue());
-                        telemetry.update();
+                    reached = false;
+                    runWithEncoders();
+                    while (!reached) {
+                        alpha1 = sensorRGB1.alpha();
+                        alpha2 = sensorRGB2.alpha();
+                        telemetry.addData("alpha1", alpha1);
+                        telemetry.addData("alpha2", alpha2);
+                        errorLeft = (alpha1 - threshold)*.25;
+                        errorRight = (alpha2 - threshold)*.25;
+                        if (errorLeft<0) {errorLeft=0;}
+                        if (errorRight<0) {errorRight=0;}
+                        leftSpeed = speed - errorLeft;
+                        rightSpeed = speed - errorRight;
+                        setRightMotors(-rightSpeed);
+                        setLeftMotors(leftSpeed);
+                        if (Math.abs(leftBackMotor.getCurrentPosition()) > 1200) {
+
+                            reached = true;
+                            finished = true;
+                            setRightMotors(0);
+                            setLeftMotors(0);
+                        } else {
+                            telemetry.addData("curPos", Math.abs(leftBackMotor.getCurrentPosition()));
+                            telemetry.update();
+                        }
+                        idle();
                     }
-                    idle();
                 }
-                String color = "";
-                if (sensorRGB3.blue() > 1) {
-                    color = "blue";
-                } else if (sensorRGB3.red() > 1) {
-                    color = "red";
-                }
-                reached = false;
-                while (!reached) {
-                    alpha1 = sensorRGB1.alpha();
-                    alpha2 = sensorRGB2.alpha();
-                    telemetry.addData("alpha1", alpha1);
-                    telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .20;
-                    errorRight = (alpha2 - threshold) * .20;
-                    if (errorLeft < 0) {
-                        errorLeft = 0;
-                    }
-                    if (errorRight < 0) {
-                        errorRight = 0;
-                    }
-                    leftSpeed = speed - errorLeft;
-                    rightSpeed = speed - errorRight;
-                    setRightMotors(rightSpeed);
-                    setLeftMotors(-leftSpeed);
-                    if (sensorRGB3.red() == 0 && sensorRGB3.blue() == 0) {
-                        reached = true;
-                        setRightMotors(0);
-                        setLeftMotors(0);
-                    } else {
-                        telemetry.addData("red", sensorRGB3.red());
-                        telemetry.addData("blue", sensorRGB3.blue());
-                        telemetry.update();
-                    }
-                    idle();
-                }
-                if (color == "red") {
-                    maxServo2();
-                } else if (color == "blue") {
-                    maxServo1();
-                }
-                reached = false;
-                while (!reached) {
-                    alpha1 = sensorRGB1.alpha();
-                    alpha2 = sensorRGB2.alpha();
-                    telemetry.addData("alpha1", alpha1);
-                    telemetry.addData("alpha2", alpha2);
-                    errorLeft = (alpha1 - threshold) * .20;
-                    errorRight = (alpha2 - threshold) * .20;
-                    if (errorLeft < 0) {
-                        errorLeft = 0;
-                    }
-                    if (errorRight < 0) {
-                        errorRight = 0;
-                    }
-                    leftSpeed = speed - errorLeft;
-                    rightSpeed = speed - errorRight;
-                    setRightMotors(-rightSpeed);
-                    setLeftMotors(leftSpeed);
-                    if (sensorRGB3.red() > 2 || sensorRGB3.blue() > 2) {
-                        reached = true;
-                        setRightMotors(0);
-                        setLeftMotors(0);
-                    } else {
-                        telemetry.addData("red", sensorRGB3.red());
-                        telemetry.addData("blue", sensorRGB3.blue());
-                        telemetry.update();
-                    }
-                    idle();
-                }
+
+                /*
+                alpha1 = sensorRGB1.alpha();
+                alpha2 = sensorRGB2.alpha();
+                telemetry.addData("alpha1", alpha1);
+                telemetry.addData("alpha2", alpha2);
+                errorLeft = (alpha1 - threshold)*.25;
+                if (errorLeft<0) {errorLeft = 0;}
+                errorRight = (alpha2 - threshold)*.25;
+                if (errorRight<0) {errorRight = 0;}
+                leftSpeed = speed + errorLeft;
+                rightSpeed = speed + errorRight;
+                setLeftMotors(rightSpeed);
+                setRightMotors(leftSpeed);
+                telemetry.addData("leftSpeed",leftSpeed);
+                telemetry.addData("rightspeed",rightSpeed);
+                telemetry.update();
+                setLeftMotors(gamepad1.left_stick_y);
+                setRightMotors(-gamepad1.right_stick_y);
+                idle();*/
             }
         }
-    }
 
     public void runWithEncoders() throws InterruptedException {
         if (leftBackMotor != null) {

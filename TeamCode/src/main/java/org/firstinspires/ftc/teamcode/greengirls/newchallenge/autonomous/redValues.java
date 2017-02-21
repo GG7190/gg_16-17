@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 
 import com.qualcomm.hardware.adafruit.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Created by Greatsword on 1/16/2017.
  */
 @Autonomous(name="redValues",group="Auto")
+@Disabled
 public class redValues extends LinearOpMode {
 
 

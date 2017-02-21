@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 
-@Autonomous(name="ballknockMAUVE", group="Autonomous")
+@Autonomous(name="ballknockBLUE", group="Autonomous")
 public class ballknockMAUVE extends LinearOpMode{
     private DcMotorController rightWheelController;
     private DcMotor rightFrontMotor;

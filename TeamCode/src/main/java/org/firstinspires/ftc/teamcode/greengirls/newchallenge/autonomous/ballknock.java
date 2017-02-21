@@ -3,12 +3,14 @@ package org.firstinspires.ftc.teamcode.greengirls.newchallenge.autonomous;
 import android.util.Log;
 import org.firstinspires.ftc.teamcode.greengirls.newchallenge.GGLibrary;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /**
  * Created by User on 12/3/2016.
  */
 
 @Autonomous(name="ballKnock", group="ballKnock")
+@Disabled
 public class ballknock extends GGLibrary {
     //set state to zero
     int state = 0;

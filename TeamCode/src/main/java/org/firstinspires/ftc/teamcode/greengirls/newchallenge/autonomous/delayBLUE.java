@@ -154,8 +154,6 @@ public class delayBLUE extends LinearOpMode {
 
             while (!finished) {
 
-                finished = true;
-
                 resetEncoders();
                 sleep(100);
                 runWithEncoders();
@@ -173,37 +171,57 @@ public class delayBLUE extends LinearOpMode {
                 }
 
                 reached = false;
-
-                setRightMotors(.45);
-                setLeftMotors(.45);
                 while (!reached) {
-                    if (gyro.getHeading() >= 87 && gyro.getHeading() <= 97) {
+                    if (gyro.getHeading() >= 77 && gyro.getHeading() <= 300) {
                         reached = true;
                         setRightMotors(0);
                         setLeftMotors(0);
                     }
+                    double error;
+                    if (gyro.getHeading() < 300) {
+                        error = (77 -  gyro.getHeading()) * .03;
+                    } else {
+                        error = .45;
+                    }
+                    setRightMotors(error);
+                    setLeftMotors(error);
                     telemetry.addData("heading", gyro.getHeading());
+                    telemetry.addData("error", error);
                     telemetry.update();
                     idle();
                 }
 
-            }
-            resetEncoders();
-            sleep(100);
-            runWithEncoders();
-            sleep(100);
-            setRightMotors(-.60);
-            setLeftMotors(.60);
-            reached = false;
-            while (!reached) {
-                if (Math.abs(leftBackMotor.getCurrentPosition()) > 7000) {
-                    reached = true;
-                    setRightMotors(0);
-                    setLeftMotors(0);
-                }
-                idle();
-            }
+                resetEncoders();
+                sleep(100);
+                runWithEncoders();
+                sleep(100);
 
+                reached = false;
+                setRightMotors(-.45);
+                setLeftMotors(.45);
+                while (!reached) {
+                    telemetry.addData("heading", gyro.getHeading());
+                    telemetry.update();
+                    if (gyro.getHeading() < 77 || gyro.getHeading() > 77) {
+                        leftSpeed = .35+((77-gyro.getHeading())*.030);
+                        rightSpeed = .35-((77-gyro.getHeading())*.030);
+                        setLeftMotors(leftSpeed);
+                        setRightMotors(-rightSpeed);
+
+                    } else {
+                        setRightMotors(-.45);
+                        setLeftMotors(.45);
+                    }
+                    if (Math.abs(leftBackMotor.getCurrentPosition()) > 8500) {
+                        reached = true;
+                        setRightMotors(0);
+                        setLeftMotors(0);
+                    }
+                    idle();
+                }
+
+                finished = true;
+            }
         }
 
 

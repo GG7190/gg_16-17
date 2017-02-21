@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@Autonomous(name="ballknockGOLD", group="Autonomous")
+@Autonomous(name="ballknockRED", group="Autonomous")
 public class ballknockGOLD extends LinearOpMode{
     private DcMotorController rightWheelController;
     private DcMotor rightFrontMotor;
